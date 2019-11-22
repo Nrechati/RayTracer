@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/21 18:24:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:21:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,35 @@ std::ostream		&operator<<(std::ostream &out, Window const &rhs) {
 	}
 
 /*
+** Set/Getters
+*/
+
+void			Window::setStatus(const bool running) { this->running = running; }
+bool			Window::getStatus(void) const { return this->running; }
+SDL_Window*		Window::getWindow(void) const { return this->window; }
+SDL_Surface*	Window::getSurface(void) const { return this->surface; }
+SDL_Event*		Window::getEvent(void) { return &this->event; }
+
+
+/*
 ** Method and Member fucntion
 */
 
 void	Window::initialize(void) {
 	SDL_Init(SDL_INIT_VIDEO);
-	char	name[] = "Unamed";
-	this->window = SDL_CreateWindow(name,
-										  SDL_WINDOWPOS_UNDEFINED,
-										  SDL_WINDOWPOS_UNDEFINED,
-										  this->width,
-										  this->height,
-										  SDL_WINDOW_SHOWN);
+	this->window = SDL_CreateWindow(this->name.data(),
+									SDL_WINDOWPOS_UNDEFINED,
+									SDL_WINDOWPOS_UNDEFINED,
+									this->width,
+									this->height,
+									SDL_WINDOW_SHOWN);
 	this->nb_frames = 0;
+	this->running = true;
 	this->timestamp = SDL_GetTicks();
 	this->surface = SDL_GetWindowSurface(this->window);
 }
 
 void	Window::show_fps(void) {
-
 	double currenttime = SDL_GetTicks();
 
 	if (currenttime - this->timestamp >= 1000)

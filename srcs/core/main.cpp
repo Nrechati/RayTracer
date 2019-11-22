@@ -24,7 +24,7 @@
 #include "class/Light.hpp"
 #include </Users/nrechati/.brew/Cellar/sdl2/2.0.10/include/SDL2/SDL.h>
 
-int				poll_event(SDL_Event *event)
+bool			poll_event(SDL_Event *event)
 {
 	while (SDL_PollEvent(event))
 	{
@@ -36,14 +36,12 @@ int				poll_event(SDL_Event *event)
 }
 
 int				main() {
-	std::cout << "Courtesy of jle-quel" << std::endl;
+	Window		window;
 
-	Window	window;
-
-	while (true) {
+	while (window.getStatus() == true) {
 		window.show_fps();
-		SDL_UpdateWindowSurface(window.window);
-	//	running = poll_event(&event);
+		SDL_UpdateWindowSurface(window.getWindow());
+		window.setStatus(poll_event(window.getEvent()));
 	}
 	return 0;
 }
