@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/22 15:21:05 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:33:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ Window::~Window(void)
 /*
 ** Overload operator
 */
-
 std::ostream		&operator<<(std::ostream &out, Window const &rhs) {
-	out << " Print Message " << std::endl;
-	(void)rhs;
+	out	<< " Window specification:" << std::endl;
+	out	<< "\tName is " << rhs.name << std::endl;
+	out	<< "\tWindow size is " << rhs.width << "x" << rhs.height << std::endl;
 	return (out);
 	}
 
 /*
 ** Set/Getters
 */
-
 void			Window::setStatus(const bool running) { this->running = running; }
 bool			Window::getStatus(void) const { return this->running; }
 SDL_Window*		Window::getWindow(void) const { return this->window; }
@@ -54,7 +53,6 @@ SDL_Event*		Window::getEvent(void) { return &this->event; }
 /*
 ** Method and Member fucntion
 */
-
 void	Window::initialize(void) {
 	SDL_Init(SDL_INIT_VIDEO);
 	this->window = SDL_CreateWindow(this->name.data(),

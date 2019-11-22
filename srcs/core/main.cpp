@@ -37,7 +37,7 @@ bool			poll_event(SDL_Event *event)
 
 int				main() {
 	Window		window;
-
+	std::cout << window;
 	while (window.getStatus() == true) {
 		window.show_fps();
 		SDL_UpdateWindowSurface(window.getWindow());

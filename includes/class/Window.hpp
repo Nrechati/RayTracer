@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/22 15:22:45 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:31:56 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ class Window
 		/* Construcotr/Destructor */
 		Window(void);
 		Window(std::string name);
+		Window(std::string name, int width, int height);
 		virtual ~Window(void);
 
 		/* Setters */
@@ -34,12 +35,14 @@ class Window
 		/* Methods */
 		void show_fps(void);
 
-	private:
-		int					nb_frames;
-		double				timestamp;
-		const int			width;
-		const int			height;
+		/* Public attribute */
+		const size_t		width;
+		const size_t		height;
 		const std::string	name;
+
+	private:
+		size_t				nb_frames;
+		double				timestamp;
 		SDL_Window			*window;
 		SDL_Surface			*surface;
 		SDL_Event			event;
