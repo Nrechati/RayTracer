@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/22 15:33:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:37:52 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,15 @@ Window::Window(std::string name) : width(1280), height(720), name(name) {
         this->initialize();
 }
 
+Window::Window(std::string name, size_t width, size_t height) : width(width),
+																height(height),
+																name(name) {
+	this->initialize();
+}
+
 Window::~Window(void)
 {
+	std::cout << "Destructing window" << std::endl;
 	SDL_FreeSurface(this->surface);
 	SDL_DestroyWindow(this->window);
 	SDL_Quit();

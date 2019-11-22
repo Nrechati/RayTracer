@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/22 15:31:56 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:35:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class Window
 		/* Construcotr/Destructor */
 		Window(void);
 		Window(std::string name);
-		Window(std::string name, int width, int height);
+		Window(std::string name, size_t width, size_t height);
 		virtual ~Window(void);
 
 		/* Setters */

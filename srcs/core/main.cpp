@@ -36,7 +36,7 @@ bool			poll_event(SDL_Event *event)
 }
 
 int				main() {
-	Window		window;
+	Window		window("Color", 200, 100);
 	std::cout << window;
 	while (window.getStatus() == true) {
 		window.show_fps();
