@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 16:33:44 by nrechati          #+#    #+#              #
-#    Updated: 2019/11/22 16:01:54 by nrechati         ###   ########.fr        #
+#    Updated: 2019/11/25 14:01:16 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ all_dir += $(CORE_DIR)
 CLASS_DIR = class/
 class_src += Window.cpp
 class_src += Color.cpp
+class_src += Vector.cpp
 class_src += Ray.cpp
 class_src += Stage.cpp
 class_src += Camera.cpp

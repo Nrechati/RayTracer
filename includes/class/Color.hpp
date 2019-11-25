@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:51:21 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 12:45:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:12:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,29 @@
 #define COLOR_H
 #include <iostream>
 #include <array>
+#include "class/Vector.hpp"
 #include </Users/nrechati/.brew/Cellar/sdl2/2.0.10/include/SDL2/SDL.h>
 
-class Color
+class Color : public Vector
 {
 	public:
 		/* Construcotr/Destructor */
-		Color(void);
-		Color(uint8_t r, uint8_t g, uint8_t b);
+		Color();
+		Color(float r, float g, float b);
 		virtual ~Color(void);
 
 		/* Methods */
-		void		setRed(uint8_t);
-		uint8_t		getRed(void) const;
-		void		setGreen(uint8_t);
-		uint8_t		getGreen(void) const;
-		void		setBlue(uint8_t);
-		uint8_t		getBlue(void) const;
+		inline float r() const { return this->values[0]; }
+		inline float g() const { return this->values[1]; }
+		inline float b() const { return this->values[2]; }
 
-		void		setValue(void);
-		uint32_t	getValue(void) const;
+		inline void		setCValue(void);
+		inline uint32_t	getCValue(void) { return this->color_value; }
 
-		void		print(void) const;
-		void		setRGB(uint8_t r, uint8_t g, uint8_t b);
+		void			setRGB(float r, float g, float b);
+		void			print(void) const;
 
 	private:
-		uint8_t	red;
-		uint8_t 	green;
-		uint8_t 	blue;
 		uint32_t	color_value;
 
 };
