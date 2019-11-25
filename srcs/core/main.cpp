@@ -16,6 +16,7 @@
 #include <string>
 #include <cmath>
 #include "class/Window.hpp"
+#include "class/Color.hpp"
 #include "class/Ray.hpp"
 #include "class/Stage.hpp"
 #include "class/Camera.hpp"
@@ -36,12 +37,20 @@ bool			poll_event(SDL_Event *event)
 }
 
 int				main() {
-	Window		window("Color", 200, 100);
-	std::cout << window;
-	while (window.getStatus() == true) {
+	Window		window("Color", 1280, 720);
+	Color		color(0,0,0);
+	std::cout << window << std::endl;
+	while (window.running() == true) {
 		window.show_fps();
+		for (size_t i=0 ; i < window.width ; i++)
+			for (size_t j = 0; j < window.height; j++)
+			{
+				color.setRGB((float(i)/float(window.width))*255, (float(j)/float(window.height))*255, 51);
+				window.put_pixel(i, j, color.getValue());
+			}
 		SDL_UpdateWindowSurface(window.getWindow());
-		window.setStatus(poll_event(window.getEvent()));
+		window.updateRunning(poll_event(window.getEvent()));
 	}
+
 	return 0;
 }

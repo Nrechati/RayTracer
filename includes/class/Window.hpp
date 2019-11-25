@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/22 15:35:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/25 08:58:50 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define WINDOW_H
 # include <iostream>
 # include </Users/nrechati/.brew/Cellar/sdl2/2.0.10/include/SDL2/SDL.h>
+
 class Window
 {
 	public:
@@ -24,16 +25,17 @@ class Window
 		virtual ~Window(void);
 
 		/* Setters */
-		void			setStatus(const bool);
+		void			updateRunning(const bool);
 
 		/* Getters */
-		bool			getStatus(void) const;
+		bool			running(void) const;
 		SDL_Window*		getWindow(void) const;
 		SDL_Surface*	getSurface(void) const;
 		SDL_Event*		getEvent(void);
 
 		/* Methods */
 		void show_fps(void);
+		void put_pixel(size_t x, size_t y, uint32_t color);
 
 		/* Public attribute */
 		const size_t		width;
@@ -46,7 +48,7 @@ class Window
 		SDL_Window			*window;
 		SDL_Surface			*surface;
 		SDL_Event			event;
-		bool				running;
+		bool				status;
 		void				initialize(void);
 
 };

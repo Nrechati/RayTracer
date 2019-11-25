@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/22 15:37:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:28:00 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ std::ostream		&operator<<(std::ostream &out, Window const &rhs) {
 /*
 ** Set/Getters
 */
-void			Window::setStatus(const bool running) { this->running = running; }
-bool			Window::getStatus(void) const { return this->running; }
+void			Window::updateRunning(const bool running) { this->status = running; }
+bool			Window::running(void) const { return this->status; }
 SDL_Window*		Window::getWindow(void) const { return this->window; }
 SDL_Surface*	Window::getSurface(void) const { return this->surface; }
 SDL_Event*		Window::getEvent(void) { return &this->event; }
@@ -69,7 +69,7 @@ void	Window::initialize(void) {
 									this->height,
 									SDL_WINDOW_SHOWN);
 	this->nb_frames = 0;
-	this->running = true;
+	this->status = true;
 	this->timestamp = SDL_GetTicks();
 	this->surface = SDL_GetWindowSurface(this->window);
 }
@@ -86,3 +86,13 @@ void	Window::show_fps(void) {
 	this->nb_frames++;
 }
 
+void	Window::put_pixel(size_t x, size_t y, uint32_t color)
+{
+	uint32_t *pixels;
+
+	(void)x;
+	SDL_LockSurface(this->surface);
+	pixels = (uint32_t*)this->surface->pixels;
+	pixels[x + (y * this->width)] = color;
+	SDL_UnlockSurface(this->surface);
+}
