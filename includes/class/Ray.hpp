@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   class.hpp                                          :+:      :+:    :+:   */
+/*   Ray.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:13:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/10/22 08:39:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:56:18 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
 # include <iostream>
+#include "class/Vector.hpp"
 
 class Ray
 {
 	public:
 		Ray(void);
-		Ray(Ray const& src);
-		virtual ~Ray(void);
+		Ray(const Vector& origin, const Vector& direction);
+		virtual ~Ray(void) {} ;
 
-		Ray& operator=(Ray const& rhs);
+		Vector	origin(void) const { return this->O; }
+		Vector	direction(void) const { return this->dir; }
+		Vector	pt_at_param(float t) const { return (this->O + (this->dir * t)); }
 
-	private:
+		Vector O;
+		Vector dir;
 };
 
-std::ostream	&operator<< (std::ostream &out, const Ray &rhs);
 
 #endif

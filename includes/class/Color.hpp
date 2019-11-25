@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:51:21 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:12:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:55:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ class Color : public Vector
 		virtual ~Color(void);
 
 		/* Methods */
-		inline float r() const { return this->values[0]; }
-		inline float g() const { return this->values[1]; }
-		inline float b() const { return this->values[2]; }
+		float r() const { return this->values[0]; }
+		float g() const { return this->values[1]; }
+		float b() const { return this->values[2]; }
 
-		inline void		setCValue(void);
-		inline uint32_t	getCValue(void) { return this->color_value; }
+		void		setCValue(void);
+		uint32_t	getCValue(void) { return this->color_value; }
 
 		void			setRGB(float r, float g, float b);
 		void			print(void) const;

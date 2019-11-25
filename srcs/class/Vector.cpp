@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:26 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:11:54 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:55:19 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,55 +39,55 @@ Vector::~Vector(void) {
 ** Get value
 */
 
-inline float	Vector::x() const { return values[0]; }
-inline float	Vector::y() const { return values[1]; }
-inline float	Vector::z() const { return values[2]; }
+float	Vector::x() const { return values[0]; }
+float	Vector::y() const { return values[1]; }
+float	Vector::z() const { return values[2]; }
 
 /*
 ** Overload operators
 */
 
-inline Vector	Vector::operator-() const {
+Vector	Vector::operator-() const {
 	Vector	result(-values[0], -this->values[1], -values[2]);
 	return  result;
 }
 
-inline Vector&	Vector::operator+=(const Vector &v) {
+Vector&	Vector::operator+=(const Vector &v) {
 	values[0] += v.values[0];
 	values[1] += v.values[1];
 	values[2] += v.values[2];
 	return *this;
 }
 
-inline Vector&	Vector::operator-=(const Vector &v) {
+Vector&	Vector::operator-=(const Vector &v) {
 	values[0] -= v.values[0];
 	values[1] -= v.values[1];
 	values[2] -= v.values[2];
 	return *this;
 }
 
-inline Vector&	Vector::operator*=(const Vector &v) {
+Vector&	Vector::operator*=(const Vector &v) {
 	values[0] *= v.values[0];
 	values[1] *= v.values[1];
 	values[2] *= v.values[2];
 	return *this;
 }
 
-inline Vector&	Vector::operator/=(const Vector &v) {
+Vector&	Vector::operator/=(const Vector &v) {
 	values[0] /= v.values[0];
 	values[1] /= v.values[1];
 	values[2] /= v.values[2];
 	return *this;
 }
 
-inline Vector&	Vector::operator*=(float t) {
+Vector&	Vector::operator*=(float t) {
 	values[0] *= t;
 	values[1] *= t;
 	values[2] *= t;
 	return *this;
 }
 
-inline Vector&	Vector::operator/=(float t) {
+Vector&	Vector::operator/=(float t) {
 	float k = 1.0f / t;
 	values[0] /= k;
 	values[1] /= k;
@@ -99,19 +99,19 @@ inline Vector&	Vector::operator/=(float t) {
 ** Public Methods
 */
 
-inline float	Vector::length() const {
+float	Vector::length() const {
 	return (sqrt(values[0] * values[0]
 				+ values[1] * values[1]
 				+ values[2] * values[2]));
 }
 
-inline float	Vector::squared_lenght() const {
+float	Vector::squared_lenght() const {
 	return (values[0] * values[0]
 				+ values[1] * values[1]
 				+ values[2] * values[2]);
 }
 
-inline void		Vector::make_unit_vector() {
+void		Vector::make_unit_vector() {
 	float k = 1.0f / sqrt(values[0] * values[0]
 						+ values[1] * values[1]
 						+ values[2] * values[2]);
@@ -131,59 +131,59 @@ void			Vector::setValues(float x, float y, float z) {
 ** Static Vector functions
 */
 
-inline std::istream &operator>>(std::istream &is, Vector &rhs) {
+std::istream &operator>>(std::istream &is, Vector &rhs) {
 	is >> rhs.values[0] >> rhs.values[1] >> rhs.values[2];
 	return is;
 }
 
-inline std::ostream &operator<<(std::ostream &os, Vector &rhs) {
+std::ostream &operator<<(std::ostream &os, Vector &rhs) {
 	os << rhs.values[0] << rhs.values[1] << rhs.values[2];
 	return os;
 }
 
 
-inline Vector		operator+(const Vector &lhs, const Vector &rhs) {
+Vector		operator+(const Vector &lhs, const Vector &rhs) {
 	Vector result(lhs.values[0] + rhs.values[0],
 				  lhs.values[1] + rhs.values[1],
 				  lhs.values[2] + rhs.values[2]);
 	return (result);
 }
 
-inline Vector		operator-(const Vector &lhs, const Vector &rhs) {
+Vector		operator-(const Vector &lhs, const Vector &rhs) {
 	Vector result(lhs.values[0] - rhs.values[0],
 				  lhs.values[1] - rhs.values[1],
 				  lhs.values[2] - rhs.values[2]);
 	return (result);
 }
 
-inline Vector		operator*(const Vector &lhs, const Vector &rhs) {
+Vector		operator*(const Vector &lhs, const Vector &rhs) {
 	Vector result(lhs.values[0] * rhs.values[0],
 				  lhs.values[1] * rhs.values[1],
 				  lhs.values[2] * rhs.values[2]);
 	return (result);
 }
 
-inline Vector		operator/(const Vector &lhs, const Vector &rhs) {
+Vector		operator/(const Vector &lhs, const Vector &rhs) {
 	Vector result(lhs.values[0] / rhs.values[0],
 				  lhs.values[1] / rhs.values[1],
 				  lhs.values[2] / rhs.values[2]);
 	return (result);
 }
 
-inline Vector		operator*(const Vector &lhs, float t) {
+Vector		operator*(const Vector &lhs, float t) {
 	Vector result(lhs.values[0] * t,
 				  lhs.values[1] * t,
 				  lhs.values[2] * t);
 	return (result);
 }
 
-inline Vector		operator/(const Vector &lhs, float t) {
+Vector		operator/(const Vector &lhs, float t) {
 	Vector result(lhs.values[0] / t,
 				  lhs.values[1] / t,
 				  lhs.values[2] / t);
 	return (result);
 }
 
-inline Vector		unit_vector(Vector v) {
+Vector		unit_vector(Vector v) {
 	return (v / v.length());
 }
