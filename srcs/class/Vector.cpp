@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:26 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/26 10:24:24 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:46:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,11 +174,30 @@ Vector		operator*(const Vector &lhs, float t) {
 	return (result);
 }
 
+Vector		operator*(float t, const Vector &lhs) {
+	Vector result(lhs.values[0] * t,
+				  lhs.values[1] * t,
+				  lhs.values[2] * t);
+	return (result);
+}
+
 Vector		operator/(const Vector &lhs, float t) {
 	Vector result(lhs.values[0] / t,
 				  lhs.values[1] / t,
 				  lhs.values[2] / t);
 	return (result);
+}
+
+float		dot(const Vector &v1, const Vector &v2){
+	return v1.values[0]*v2.values[0]
+			+ v1.values[1]*v2.values[1]
+			+ v1.values[2]*v2.values[2];
+}
+
+Vector		cross(const Vector &v1, const Vector &v2){
+	return Vector(v1.values[1]*v2.values[2] - v1.values[2]*v2.values[1]
+			, (-(v1.values[0]*v2.values[2] - v1.values[2]*v2.values[0]))
+			, v1.values[0]*v2.values[1] - v1.values[1]*v2.values[0]);
 }
 
 Vector		unit_vector(Vector v) {

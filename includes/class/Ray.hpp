@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:13:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:56:18 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:41:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,4 @@ class Ray
 		Vector O;
 		Vector dir;
 };
-
-
 #endif

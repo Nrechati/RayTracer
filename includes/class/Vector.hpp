@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:55:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:41:11 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ Vector			operator-(const Vector &lhs, const Vector &rhs);
 Vector			operator*(const Vector &lhs, const Vector &rhs);
 Vector			operator/(const Vector &lhs, const Vector &rhs);
 Vector			operator*(const Vector &lhs, float t);
+Vector			operator*(float t, const Vector &lhs);
 Vector			operator/(const Vector &lhs, float t);
 
 float			dot(const Vector &lhs, const Vector &rhs);

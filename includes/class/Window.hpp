@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/26 14:23:17 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:16:28 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ class Window
 		void put_pixel(size_t x, size_t y, uint32_t color);
 
 		/* Public attribute */
-		const size_t		width;
-		const size_t		height;
+		const int			width;
+		const int			height;
 		const std::string	name;
 
 		/* Exception */
