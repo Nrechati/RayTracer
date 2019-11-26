@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 08:58:50 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:23:17 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ class Window
 		const size_t		width;
 		const size_t		height;
 		const std::string	name;
+
+		/* Exception */
+		class SDL_Init_Exception : public std::exception {
+			public:
+				virtual const char* what() const throw() {
+					return ("SDL Initialization went wrong");
+				}
+		};
+		class SDL_Window_Exception : public std::exception {
+			public:
+				virtual const char* what() const throw() {
+					return ("SDL Window and/or surface creation went wrong");
+				}
+		};
 
 	private:
 		size_t				nb_frames;

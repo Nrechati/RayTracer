@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 11:28:00 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:23:40 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ SDL_Event*		Window::getEvent(void) { return &this->event; }
 ** Method and Member fucntion
 */
 void	Window::initialize(void) {
-	SDL_Init(SDL_INIT_VIDEO);
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+		throw Window::SDL_Init_Exception();
+	}
 	this->window = SDL_CreateWindow(this->name.data(),
 									SDL_WINDOWPOS_UNDEFINED,
 									SDL_WINDOWPOS_UNDEFINED,
@@ -72,6 +74,9 @@ void	Window::initialize(void) {
 	this->status = true;
 	this->timestamp = SDL_GetTicks();
 	this->surface = SDL_GetWindowSurface(this->window);
+	if (this->window == nullptr || this->window == nullptr) {
+		throw Window::SDL_Window_Exception();
+	}
 }
 
 void	Window::show_fps(void) {
@@ -90,9 +95,6 @@ void	Window::put_pixel(size_t x, size_t y, uint32_t color)
 {
 	uint32_t *pixels;
 
-	(void)x;
-	SDL_LockSurface(this->surface);
 	pixels = (uint32_t*)this->surface->pixels;
 	pixels[x + (y * this->width)] = color;
-	SDL_UnlockSurface(this->surface);
 }

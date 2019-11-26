@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:26 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:55:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/26 10:24:24 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ Vector::Vector(float first, float second, float third) {
 	return;
 }
 
-Vector::~Vector(void) {
-	std::cout << "Vector destructor called" << std::endl;
-	return;
-}
+Vector::~Vector(void) {}
 
 /*
 ** Get value
