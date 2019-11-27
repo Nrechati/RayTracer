@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:17 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 11:45:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:41:36 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Camera::Camera(void) {
 }
 
 Camera::~Camera(void) {
-	std::cout << "Camera destructor called" << std::endl;
+	//std::cout << "Camera destructor called" << std::endl;
 	return;
 }
 

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 10:41:37 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:34:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include "class/Camera.hpp"
 # include "class/Light.hpp"
 
-# define WIDTH 1024
-# define HEIGHT 512
+# define WIDTH 1280
+# define HEIGHT 640
 
 #endif

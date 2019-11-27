@@ -30,10 +30,19 @@ bool			poll_event(Window &window, SDL_Event *event) {
 	return (false);
 }
 
+Vector			random_unit_sphere() {
+	Vector	p;
+	do {
+		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
+	} while (p.squared_lenght() >= 1.0f);
+	return p;
+}
+
 Vector			colored(const Ray& r, A_Object *stage) {
 	hit_result	result;
-	if (stage->hit(r, 0.0f, MAXFLOAT, result)) {
-		return 0.5f * Vector(result.normal.x() + 1, result.normal.y() + 1, result.normal.z() + 1);
+	if (stage->hit(r, 0.001f, MAXFLOAT, result)) {
+		Vector	target = result.p + result.normal + random_unit_sphere();
+		return 0.5f * colored(Ray(result.p, target - result.p), stage);
 	}
 	else {
 		Vector	unit_direction = unit_vector(r.direction());
@@ -43,9 +52,11 @@ Vector			colored(const Ray& r, A_Object *stage) {
 }
 
 void			render(Window &window) {
-	Color		color;
 
+	int			ns = 100;
+	Color		color;
 	Camera		cam;
+
 	A_Object	*list[2];
 	A_Object	*stage;
 	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f);
@@ -53,18 +64,23 @@ void			render(Window &window) {
 	stage = new Stage(list, 2);
 
 	SDL_LockSurface(window.getSurface());
-	for (int j = window.height - 1; j >= 0; j--)
-		for (int i = 0; i < window.width; i++)
-		{
-			float u = float(i + drand48()) / float(window.width);
-			float v = float(j + drand48()) / float(window.height);
+	for (int j = window.height - 1; j >= 0; j--) {
+		for (int i = 0; i < window.width; i++) {
+			Vector col_vector(0,0,0);
+			for (int s=0; s < ns; s++) {
+				float u = float(i + drand48()) / float(window.width);
+				float v = float(j + drand48()) / float(window.height);
 
-			Ray r = cam.getRay(u, v);
-			Vector p = r.pt_at_param(2.0f);
-			Vector tmp = colored(r, stage);
-			color.setRGB(tmp.values[0], tmp.values[1], tmp.values[2]);
+				Ray r = cam.getRay(u, v);
+				Vector p = r.pt_at_param(2.0f);
+				col_vector += colored(r, stage);
+			}
+			col_vector = col_vector / float(ns);
+			col_vector = Vector(sqrt(col_vector[0]), sqrt(col_vector[1]), sqrt(col_vector[2]));
+			Color	color(col_vector[0], col_vector[1], col_vector[2]);
 			window.put_pixel(i, j, color.getCValue());
 		}
+	}
 	SDL_UnlockSurface(window.getSurface());
 }
 
