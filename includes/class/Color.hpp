@@ -6,16 +6,14 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:51:21 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:55:28 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:54:30 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLOR_H
-#define COLOR_H
-#include <iostream>
-#include <array>
-#include "class/Vector.hpp"
-#include </Users/nrechati/.brew/Cellar/sdl2/2.0.10/include/SDL2/SDL.h>
+# define COLOR_H
+
+# include "core/RayTracer.hpp"
 
 class Color : public Vector
 {

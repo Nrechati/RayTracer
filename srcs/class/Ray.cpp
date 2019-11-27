@@ -6,11 +6,11 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:17 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 16:52:46 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:54:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "class/Ray.hpp"
+#include <core/RayTracer.hpp>
 
 /*
 ** Constructor / Destructor

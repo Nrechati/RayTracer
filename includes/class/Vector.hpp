@@ -6,15 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/26 16:41:11 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:55:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
-#define VECTOR_H
-#include <iostream>
-#include <stdlib.h>
-#include <math.h>
+# define VECTOR_H
+# include "core/RayTracer.hpp"
 
 class Vector
 {

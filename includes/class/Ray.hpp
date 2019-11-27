@@ -6,14 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:13:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/26 14:41:03 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:55:29 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
-# include <iostream>
-#include "class/Vector.hpp"
+# include "core/RayTracer.hpp"
 
 class Ray
 {

@@ -6,24 +6,24 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:13:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/25 14:16:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 10:35:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPHERE_H
 # define SPHERE_H
-# include <iostream>
+# include "core/RayTracer.hpp"
 
-class Sphere
-{
+class Sphere : public A_Object {
 	public:
 		Sphere(void);
-		Sphere(Sphere const& src);
+		Sphere(Vector center, float radius);
 		virtual ~Sphere(void);
 
-		Sphere& operator=(Sphere const& rhs);
+		virtual bool hit(const Ray& r, float t_min, float t_max, hit_result& result) const;
 
-	private:
+		Vector	center;
+		float	radius;
 };
 
 std::ostream	&operator<< (std::ostream &out, const Sphere &rhs);

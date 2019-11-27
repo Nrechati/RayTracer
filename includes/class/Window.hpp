@@ -6,14 +6,13 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/26 16:16:28 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:53:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WINDOW_H
 # define WINDOW_H
-# include <iostream>
-# include </Users/nrechati/.brew/Cellar/sdl2/2.0.10/include/SDL2/SDL.h>
+# include <core/RayTracer.hpp>
 
 class Window
 {
