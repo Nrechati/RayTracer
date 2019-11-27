@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/26 16:49:52 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 08:49:20 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ void	Window::put_pixel(size_t x, size_t y, uint32_t color)
 	uint32_t *pixels;
 
 	pixels = (uint32_t*)this->surface->pixels;
-	pixels[x + ((639-y) * this->width)] = color;
+	pixels[x + ((this->height - 1 - y) * this->width)] = color;
 }

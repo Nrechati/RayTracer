@@ -31,10 +31,16 @@ bool			poll_event(Window &window, SDL_Event *event) {
 	{
 		if (event->type == SDL_QUIT || (event->type == SDL_KEYDOWN
 					&& event->key.keysym.sym == SDLK_ESCAPE))
+		{
 			window.updateRunning(false);
 			return (false);
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE))
+		{
+			std::cout << "Render" << std::endl;
+			return (true);
+		}
 	}
-	window.updateRunning(true);
 	return (false);
 }
 
@@ -58,7 +64,7 @@ Vector			colored(const Ray& r){
 	}
 	Vector		unit_direction = unit_vector(r.direction());
 	t = 0.5f*(unit_direction.y() + 1.0f);
-	return (1.0f-t)*Vector(1.0f,1.0f,1.0f) + t*Vector(1.0f, 0.7f, 0.26f);
+	return (1.0f-t)*Vector(1.0f,1.0f,1.0f) + t*Vector(0.5f, 0.7f, 1.0f);
 }
 
 void			render(Window &window) {
@@ -69,8 +75,8 @@ void			render(Window &window) {
 	Vector		origin(0.0f,0.0f,0.0f);
 
 	SDL_LockSurface(window.getSurface());
-	for (int i = 0; i < window.width; i++)
-		for (int j = 0; j < window.height; j++)
+	for (int j = window.height - 1; j >= 0; j--)
+		for (int i = 0; i < window.width; i++)
 		{
 			float u = float(i) / float(window.width);
 			float v = float(j) / float(window.height);
@@ -96,7 +102,7 @@ void			run_engine(Window &window) {
 
 int				main() {
 	try {
-		Window *window = new Window("RayTracer", 1280, 640);
+		Window *window = new Window("RayTracer", 1024, 512);
 		run_engine(*window);
 	}
 	catch (const std::exception& e) {
