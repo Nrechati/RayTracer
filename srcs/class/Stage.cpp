@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:17 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 11:07:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 11:32:08 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ bool	Stage::hit(const Ray &r, float t_min, float t_max, hit_result &result) cons
 
 std::ostream		&operator<<(std::ostream &out, Stage const &rhs)
 {
-	out << " Print Message " << std::endl;
-	(void)rhs;
+	out << " Stage has " << rhs.size << " Objects in it" << std::endl;
 	return (out);
 	}

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:17 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/21 17:19:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 11:45:35 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,34 @@
 ** Constructor / Destructor
 */
 Camera::Camera(void) {
-	std::cout << "Default constructor called" << std::endl;
-	return;
-}
-
-Camera::Camera(Camera const& src) {
-	std::cout << "Copy constructor called" << std::endl;
-	*this = src;
+	this->lower_left_corner = Vector(-2.0f, -1.0f, -1.0f);
+	this->horizontal = Vector(4.0f,0.0f,0.0f);
+	this->vertical = Vector(0.0f,2.0f,0.0f);
+	this->origin = Vector(0.0f,0.0f,0.0f);
 	return;
 }
 
 Camera::~Camera(void) {
-	std::cout << "Default destructor called" << std::endl;
+	std::cout << "Camera destructor called" << std::endl;
 	return;
 }
 
 /*
-** Overload operator
+** Method and Member fucntion
 */
-Camera&		Camera::operator=(Camera const& rhs) {
-	std::cout << "Assignation operator called" << std::endl;
-	(void)rhs;/*Assignation code*/
-	return *this;
+
+Ray		Camera::getRay(float u, float v) {
+	return Ray(origin, lower_left_corner + u*horizontal + v*vertical - origin);
 }
 
+/*
+** Static function
+*/
+
 std::ostream		&operator<<(std::ostream &out, Camera const &rhs) {
-	out << " Print Message " << std::endl;
+	out << " Camera is on " << std::endl;
 	(void)rhs;
 	return (out);
 	}
 
-/*
-** Method and Member fucntion
-*/
+

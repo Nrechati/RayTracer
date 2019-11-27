@@ -44,11 +44,8 @@ Vector			colored(const Ray& r, A_Object *stage) {
 
 void			render(Window &window) {
 	Color		color;
-	Vector		lower_left_corner(-2.0f, -1.0f, -1.0f);
-	Vector		horizontal(4.0f,0.0f,0.0f);
-	Vector		vertical(0.0f,2.0f,0.0f);
-	Vector		origin(0.0f,0.0f,0.0f);
 
+	Camera		cam;
 	A_Object	*list[2];
 	A_Object	*stage;
 	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f);
@@ -59,10 +56,10 @@ void			render(Window &window) {
 	for (int j = window.height - 1; j >= 0; j--)
 		for (int i = 0; i < window.width; i++)
 		{
-			float u = float(i) / float(window.width);
-			float v = float(j) / float(window.height);
+			float u = float(i + drand48()) / float(window.width);
+			float v = float(j + drand48()) / float(window.height);
 
-			Ray r(origin, lower_left_corner + u*horizontal + v*vertical);
+			Ray r = cam.getRay(u, v);
 			Vector p = r.pt_at_param(2.0f);
 			Vector tmp = colored(r, stage);
 			color.setRGB(tmp.values[0], tmp.values[1], tmp.values[2]);
