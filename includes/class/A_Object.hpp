@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   abstract.hpp                                       :+:      :+:    :+:   */
+/*   A_Object.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/10/22 08:39:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 09:09:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 # define A_OBJECT_H
 # include <iostream>
 
+struct hit_result {
+	float	t;
+	Vector	p;
+	Vector	normal;
+};
+
 class A_Object
 {
 	public:
-		A_Object(void);
-		A_Object(A_Object const& src);
-		virtual ~A_Object(void);
-
-		A_Object& operator=(A_Object const& rhs);
-
-		virtual void function() const = 0;
-
-	private:
+		virtual void hit (const ray& r, float t_min, float t_max, hit_result& result) = 0;
 };
 
 std::ostream	&operator<< (std::ostream &out, const A_Object &rhs);
