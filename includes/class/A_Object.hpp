@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 10:35:38 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:32:03 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define A_OBJECT_H
 # include "core/RayTracer.hpp"
 
+class A_Material;
+
 struct hit_result {
-	float	t;
-	Vector	p;
-	Vector	normal;
+	float		t;
+	Vector		p;
+	Vector		normal;
+	A_Material	*mat_ptr;
 };
 
 class A_Object

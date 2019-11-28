@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:17 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 10:45:59 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:17:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 */
 
 Sphere::Sphere(void) {
-	std::cout << "Default constructor called" << std::endl;
 	return;
 }
 
-Sphere::Sphere(Vector center, float radius) : center(center), radius(radius) {
+Sphere::Sphere(Vector center, float radius, A_Material *mat_ptr) :	center(center),
+																	radius(radius),
+																	mat_ptr(mat_ptr) {
 	return;
 }
 
@@ -46,6 +47,7 @@ bool			Sphere::hit(const Ray& r, float t_min, float t_max, hit_result& result) c
 			result.t = tmp;
 			result.p = r.pt_at_param(result.t);
 			result.normal = (result.p - center) / radius;
+			result.mat_ptr = this->mat_ptr;
 			return true;
 		}
 		tmp = (-b + sqrt(discriminant)) / a;

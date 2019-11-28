@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 16:33:44 by nrechati          #+#    #+#              #
-#    Updated: 2019/11/27 10:41:24 by nrechati         ###   ########.fr        #
+#    Updated: 2019/11/28 12:29:55 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ COMP_MODE = "Standard Compilation"
 CXX = clang++
 ifeq ($(DB),1)
     COMP_MODE = "Debug Compilation"
-    CXXFLAGS = -g3 -Werror -Wall -Wextra -I $(INC_DIR) $(SDL_DIR)
+    CXXFLAGS = -g3 -fsanitize=address -Werror -Wall -Wextra -I $(INC_DIR) $(SDL_DIR)
 else
 	CXXFLAGS = -Werror -Wall -Wextra -I $(INC_DIR) $(SDL_DIR)
 endif
@@ -49,7 +49,7 @@ class_src += A_Object.cpp
 class_src += Stage.cpp
 class_src += Sphere.cpp
 class_src += Camera.cpp
-class_src += Light.cpp
+class_src += A_Material.cpp
 
 CORE_DIR = core/
 core_src += main.cpp
@@ -84,7 +84,7 @@ GENTLEMAN = "ಠ_ರೃ  "
 all: header $(NAME)
 
 $(NAME): obj $(obj)
-	@$(CXX) -o $@ $(obj) $(SDL_LIBS)
+	$(CXX) -g3 -fsanitize=address -o $@ $(obj) $(SDL_LIBS)
 	@echo $(CYAN)"\n"$(ROBOT)"[SUCCESS]       [↪ \"$(NAME)\" Binary created]"$(NC)
 
 obj:
@@ -94,7 +94,7 @@ obj:
 
 obj/%.o: srcs/%.cpp
 	@echo $(GREEN)$(ROBOT)"[COMPILING]     [↪ $<]"$(NC)
-	@$(CXX) $(CXXFLAGS) -o $@ -c $^
+	$(CXX) $(CXXFLAGS) -o $@ -c $^
 
 clean: header
 	@rm -rf $(OBJ_DIR)

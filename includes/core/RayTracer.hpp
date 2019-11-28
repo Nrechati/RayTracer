@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 14:34:35 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:48:37 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include "class/Stage.hpp"
 # include "class/Sphere.hpp"
 # include "class/Camera.hpp"
-# include "class/Light.hpp"
+# include "class/A_Material.hpp"
 
 # define WIDTH 1280
 # define HEIGHT 640

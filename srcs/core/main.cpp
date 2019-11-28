@@ -30,7 +30,7 @@ bool			poll_event(Window &window, SDL_Event *event) {
 	return (false);
 }
 
-Vector			random_unit_sphere() {
+Vector			random_in_unit_sphere() {
 	Vector	p;
 	do {
 		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
@@ -38,16 +38,53 @@ Vector			random_unit_sphere() {
 	return p;
 }
 
-Vector			colored(const Ray& r, A_Object *stage) {
+Vector			reflect(const Vector &v, const Vector &n) {
+	return v - 2*dot(v,n)*n;
+}
+
+class lambertian : public A_Material {
+	public:
+		lambertian(const Vector& a) : albedo(a) {}
+		virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const {
+			(void)r_in; //REALLY ?
+			Vector target = result.p + result.normal + random_in_unit_sphere();
+			scattered = Ray(result.p, target - result.p);
+			attenuation = albedo;
+			return true;
+		}
+		Vector albedo;
+};
+
+class metal : public A_Material {
+	public:
+		metal(const Vector& a) : albedo(a) {}
+		virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const {
+			Vector reflected = reflect(unit_vector(r_in.direction()), result.normal);
+			scattered = Ray(result.p, reflected);
+			attenuation = albedo;
+			return (dot(scattered.direction(), result.normal) > 0);
+		}
+		Vector albedo;
+};
+
+Vector			getColor(const Ray& r, A_Object *stage, int depth) {
 	hit_result	result;
 	if (stage->hit(r, 0.001f, MAXFLOAT, result)) {
-		Vector	target = result.p + result.normal + random_unit_sphere();
-		return 0.5f * colored(Ray(result.p, target - result.p), stage);
+		Ray		scattered;
+		Vector	attenuation;
+		if (result.mat_ptr == nullptr)
+			exit(0);
+		if (depth < 50 && result.mat_ptr->scatter(r, result, attenuation, scattered)) {
+			return attenuation * getColor(scattered, stage, depth + 1);
+		}
+		else {
+			return (Vector(0,0,0));
+		}
 	}
 	else {
 		Vector	unit_direction = unit_vector(r.direction());
-		float 	t = 0.5f*(unit_direction.y() + 1.0f);
-		return (1.0f-t)*Vector(1.0f,1.0f,1.0f) + t*Vector(0.5f, 0.7f, 1.0f);
+		float	t = 0.5f * (unit_direction.y() + 1.0f);
+		return ((1.0f - t) * Vector(1.0f, 1.0f, 1.0f) + t * Vector(0.5f, 0.7f, 1.0f));
 	}
 }
 
@@ -57,11 +94,15 @@ void			render(Window &window) {
 	Color		color;
 	Camera		cam;
 
-	A_Object	*list[2];
+	A_Object	*list[4];
 	A_Object	*stage;
-	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f);
-	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f);
-	stage = new Stage(list, 2);
+
+	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new lambertian(Vector(0.8f, 0.3f, 0.3f)));
+	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f, new lambertian(Vector(0.8f, 0.8f, 0.0f)));
+	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f)));
+	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f)));
+
+	stage = new Stage(list, 4);
 
 	SDL_LockSurface(window.getSurface());
 	for (int j = window.height - 1; j >= 0; j--) {
@@ -72,8 +113,8 @@ void			render(Window &window) {
 				float v = float(j + drand48()) / float(window.height);
 
 				Ray r = cam.getRay(u, v);
-				Vector p = r.pt_at_param(2.0f);
-				col_vector += colored(r, stage);
+				Vector p = r.pt_at_param(2.0f); // REALLY ?
+				col_vector += getColor(r, stage, 0);
 			}
 			col_vector = col_vector / float(ns);
 			col_vector = Vector(sqrt(col_vector[0]), sqrt(col_vector[1]), sqrt(col_vector[2]));

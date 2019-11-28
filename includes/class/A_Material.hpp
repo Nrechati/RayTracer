@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Light.hpp                                          :+:      :+:    :+:   */
+/*   A_Material.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHT_H
-# define LIGHT_H
-# include <iostream>
+#ifndef A_MATERIAL_H
+# define A_MATERIAL_H
+# include "core/RayTracer.hpp"
 
-class Light
+class A_Material
 {
 	public:
-		Light(void);
-		Light(Light const& src);
-		virtual ~Light(void);
-
-		Light& operator=(Light const& rhs);
-
-	private:
+		virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const = 0;
 };
-
-std::ostream	&operator<< (std::ostream &out, const Light &rhs);
 
 #endif
