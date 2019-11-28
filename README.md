@@ -4,8 +4,10 @@ RayTracer C++ implemention
 
 #TODO:
 
-- Vector for window boundaries to window class
-- don't put it in the render loop
+- Vector for window boundaries to window class = Camera Class
 - Make it scale to ratio
 
 - Cleaner calculus for reading
+
+- Leak on materials
+- Low Res for mvt

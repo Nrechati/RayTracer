@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 16:33:44 by nrechati          #+#    #+#              #
-#    Updated: 2019/11/28 12:29:55 by nrechati         ###   ########.fr        #
+#    Updated: 2019/11/28 15:18:10 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,8 +83,10 @@ GENTLEMAN = "ಠ_ರೃ  "
 #Rules
 all: header $(NAME)
 
+#-g3 -fsanitize=address
+
 $(NAME): obj $(obj)
-	$(CXX) -g3 -fsanitize=address -o $@ $(obj) $(SDL_LIBS)
+	@$(CXX) -o $@ $(obj) $(SDL_LIBS)
 	@echo $(CYAN)"\n"$(ROBOT)"[SUCCESS]       [↪ \"$(NAME)\" Binary created]"$(NC)
 
 obj:
@@ -94,7 +96,7 @@ obj:
 
 obj/%.o: srcs/%.cpp
 	@echo $(GREEN)$(ROBOT)"[COMPILING]     [↪ $<]"$(NC)
-	$(CXX) $(CXXFLAGS) -o $@ -c $^
+	@$(CXX) $(CXXFLAGS) -o $@ -c $^
 
 clean: header
 	@rm -rf $(OBJ_DIR)

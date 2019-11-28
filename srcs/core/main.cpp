@@ -42,11 +42,11 @@ Vector			reflect(const Vector &v, const Vector &n) {
 	return v - 2*dot(v,n)*n;
 }
 
-class lambertian : public A_Material {
+class default_mat : public A_Material {
 	public:
-		lambertian(const Vector& a) : albedo(a) {}
+		default_mat(const Vector& a) : albedo(a) {}
 		virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const {
-			(void)r_in; //REALLY ?
+			(void)r_in;
 			Vector target = result.p + result.normal + random_in_unit_sphere();
 			scattered = Ray(result.p, target - result.p);
 			attenuation = albedo;
@@ -57,23 +57,23 @@ class lambertian : public A_Material {
 
 class metal : public A_Material {
 	public:
-		metal(const Vector& a) : albedo(a) {}
+		metal(const Vector& a, float f) : albedo(a) { if (f < 1) fuzz = f; else fuzz = 1; }
 		virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const {
 			Vector reflected = reflect(unit_vector(r_in.direction()), result.normal);
-			scattered = Ray(result.p, reflected);
+			scattered = Ray(result.p, reflected + fuzz*random_in_unit_sphere());
 			attenuation = albedo;
 			return (dot(scattered.direction(), result.normal) > 0);
 		}
-		Vector albedo;
+		Vector	albedo;
+		float	fuzz;
 };
 
 Vector			getColor(const Ray& r, A_Object *stage, int depth) {
 	hit_result	result;
+	result.mat_ptr = new default_mat(Vector(0.f,0.f,0.f)); // LEAKING
 	if (stage->hit(r, 0.001f, MAXFLOAT, result)) {
 		Ray		scattered;
 		Vector	attenuation;
-		if (result.mat_ptr == nullptr)
-			exit(0);
 		if (depth < 50 && result.mat_ptr->scatter(r, result, attenuation, scattered)) {
 			return attenuation * getColor(scattered, stage, depth + 1);
 		}
@@ -97,10 +97,10 @@ void			render(Window &window) {
 	A_Object	*list[4];
 	A_Object	*stage;
 
-	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new lambertian(Vector(0.8f, 0.3f, 0.3f)));
-	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f, new lambertian(Vector(0.8f, 0.8f, 0.0f)));
-	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f)));
-	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f)));
+	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new default_mat(Vector(0.8f, 0.3f, 0.3f)));
+	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f, new default_mat(Vector(0.8f, 0.8f, 0.0f)));
+	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.3f));
+	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f), 1.0f));
 
 	stage = new Stage(list, 4);
 
