@@ -42,6 +42,18 @@ Vector			reflect(const Vector &v, const Vector &n) {
 	return v - 2*dot(v,n)*n;
 }
 
+bool			refract(const Vector& v, const Vector& n, float ni_over_nt, Vector refracted) {
+	Vector	uv = unit_vector(v);
+	float	dt = dot(uv,n);
+	float	discriminant = 1.0f - ni_over_nt*(1-dt*dt);
+	if (discriminant > 0) {
+		refracted = ni_over_nt*(uv - n*dt) - n*sqrt(discriminant);
+		return true;
+	}
+	else
+		return false;
+}
+
 class default_mat : public A_Material {
 	public:
 		default_mat(const Vector& a) : albedo(a) {}
@@ -66,6 +78,35 @@ class metal : public A_Material {
 		}
 		Vector	albedo;
 		float	fuzz;
+};
+
+class dielectric : public A_Material {
+	public:
+		dielectric(float ri) : ref_idx(ri) {}
+		virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const {
+			Vector outward_normal;
+			Vector reflected = reflect(r_in.direction(), result.normal);
+			float ni_over_nt;
+			attenuation = Vector(1.0f, 1.0f, 1.0f);
+			Vector refracted;
+			if (dot(r_in.direction(), result.normal) > 0) {
+				outward_normal = -result.normal;
+				ni_over_nt = ref_idx;
+			}
+			else {
+				outward_normal = result.normal;
+				ni_over_nt = 1.0f / ref_idx;
+			}
+			if (refract(r_in.direction(), outward_normal, ni_over_nt, refracted)) {
+				scattered = Ray(result.p, refracted);
+			}
+			else {
+				scattered = Ray(result.p, reflected);
+				return false;
+			}
+			return true;
+		}
+		float	ref_idx;
 };
 
 Vector			getColor(const Ray& r, A_Object *stage, int depth) {
@@ -97,10 +138,10 @@ void			render(Window &window) {
 	A_Object	*list[4];
 	A_Object	*stage;
 
-	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new default_mat(Vector(0.8f, 0.3f, 0.3f)));
+	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new default_mat(Vector(0.1f, 0.2f, 0.5f)));
 	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f, new default_mat(Vector(0.8f, 0.8f, 0.0f)));
-	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.3f));
-	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f), 1.0f));
+	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.0f));
+	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f), 0.0f));
 
 	stage = new Stage(list, 4);
 
