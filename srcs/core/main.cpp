@@ -45,7 +45,7 @@ Vector			reflect(const Vector &v, const Vector &n) {
 bool			refract(const Vector& v, const Vector& n, float ni_over_nt, Vector refracted) {
 	Vector	uv = unit_vector(v);
 	float	dt = dot(uv,n);
-	float	discriminant = 1.0f - ni_over_nt*(1-dt*dt);
+	float	discriminant = 1.0f - (ni_over_nt * ni_over_nt * (1 - dt * dt));
 	if (discriminant > 0) {
 		refracted = ni_over_nt*(uv - n*dt) - n*sqrt(discriminant);
 		return true;
@@ -87,7 +87,7 @@ class dielectric : public A_Material {
 			Vector outward_normal;
 			Vector reflected = reflect(r_in.direction(), result.normal);
 			float ni_over_nt;
-			attenuation = Vector(1.0f, 1.0f, 1.0f);
+			attenuation = Vector(1.0f, 1.0f, 0.0f);
 			Vector refracted;
 			if (dot(r_in.direction(), result.normal) > 0) {
 				outward_normal = -result.normal;
@@ -102,8 +102,10 @@ class dielectric : public A_Material {
 			}
 			else {
 				scattered = Ray(result.p, reflected);
+				std::cout <<"False\n";
 				return false;
 			}
+			std::cout << "True\n";
 			return true;
 		}
 		float	ref_idx;
@@ -141,7 +143,7 @@ void			render(Window &window) {
 	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new default_mat(Vector(0.1f, 0.2f, 0.5f)));
 	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f, new default_mat(Vector(0.8f, 0.8f, 0.0f)));
 	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.0f));
-	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f), 0.0f));
+	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new dielectric(1.5f));
 
 	stage = new Stage(list, 4);
 
@@ -169,7 +171,7 @@ void			render(Window &window) {
 void			run_engine(Window &window) {
 	bool	render_needed = true;
 	while (window.running() == true) {
-		window.show_fps();
+		//window.show_fps();
 		if (render_needed == true)
 			render(window);
 		render_needed = poll_event(window, window.getEvent());
