@@ -133,15 +133,15 @@ void			render(Window &window) {
 
 	int			ns = 100;
 	Color		color;
-	Camera		cam;
-
+	Camera		cam(Vector(-2, 2, 1), Vector(0,0,-1), Vector(0,1,0), 50, 2.0f);
+	//Camera		cam;
 	A_Object	*list[4];
 	A_Object	*stage;
 
 	list[0] = new Sphere(Vector(0.0f,0.0f,-1.0f), 0.5f, new default_mat(Vector(0.1f, 0.2f, 0.5f)));
 	list[1] = new Sphere(Vector(0.0f, -100.5f, -1.0f), 100.0f, new default_mat(Vector(0.8f, 0.8f, 0.0f)));
 	list[2] = new Sphere(Vector(1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.3f));
-	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f), 1.0f));
+	list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new metal(Vector(0.8f, 0.8f, 0.8f), 0.5f));
 	//list[3] = new Sphere(Vector(-1.0f, 0.0f, -1.0f), 0.5f, new dielectric(1.5f));
 
 	stage = new Stage(list, 4);
