@@ -1,6 +1,8 @@
 # RayTracer
 RayTracer C++ implemention
 
+![Current state of RayTracer (V1.0)](https://imgur.com/a/ljTLq71)
+
 
 #TODO:
 

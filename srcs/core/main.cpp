@@ -174,40 +174,6 @@ void			render(Window &window, Camera &cam) {
 	list[i++] = new Sphere(Vector(0,1,-1), 1.0f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.05f));
 	list[i++] = new Sphere(Vector(2,1,-1), 1.0f, new metal(Vector(0.7f, 0.6f, 0.5f), 0.0f));
 
-	/*
-	// Support
-	list[0] = new Sphere(Vector(0, -1000, 0), 1000, new metal(Vector(0.75f, 0.75f, 0.75f), 0.0f));
-
-	// Right part
-	list[i++] = new Sphere(Vector(3, 0.2f, -3), 0.2f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(2, 0.4f, -4), 0.4f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.1f));
-	list[i++] = new Sphere(Vector(-1, 0.4f, -7.5f), 0.4f, new metal(Vector(0.87f, 0.57f, 0.12f), 0.0f));
-	list[i++] = new Sphere(Vector(-2.5, 0.3f, -8), 0.3f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(2.5f, 0.1f, -3), 0.1f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(3, 0.2f, -2), 0.2f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.0f));
-	list[i++] = new Sphere(Vector(3.5f, 0.3f, -1), 0.3f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(3, 0.15f, -0.5), 0.15f, new metal(Vector(0.87f, 0.57f, 0.12f), 0.3f));
-
-	// Left part
-	list[i++] = new Sphere(Vector(1, 0.2f, 1), 0.2f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(-1, 0.4f, 1), 0.4f, new metal(Vector(0.87f, 0.57f, 0.12f), 0.2f));
-	list[i++] = new Sphere(Vector(1, 0.3f, 2), 0.3f, new metal(Vector(0.87f, 0.57f, 0.12f), 0.0f));
-	list[i++] = new Sphere(Vector(-1, 0.2f, 2), 0.2f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.3f));
-	list[i++] = new Sphere(Vector(-1.5, 0.1f, 2.5), 0.1f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(-3, 0.5f, 3), 0.5f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(-5, 0.5f, 2), 0.5f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.0f));
-	list[i++] = new Sphere(Vector(0, 0.15f, 1.5f), 0.15f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.4f));
-	list[i++] = new Sphere(Vector(0, 0.35f, 0.5f), 0.35f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.8f));
-	list[i++] = new Sphere(Vector(1, 0.1f, 1.5f), 0.1f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.4f));
-	list[i++] = new Sphere(Vector(2, 0.2f, 1.5f), 0.2f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(2.5f, 0.4f, 0.5f), 0.4f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.0f));
-
-	// Center Part
-	list[i++] = new Sphere(Vector(-3, 1, -1), 1.0f, new metal(Vector(0.0f, 0.4f, 0.05f), 0.0f));
-	list[i++] = new Sphere(Vector(0, 1, -1), 1.0f, new metal(Vector(0.87f, 0.57f, 0.12f), 0.05f));
-	list[i++] = new Sphere(Vector(2, 1, -1), 1.0f, new metal(Vector(0.75f, 0.75f, 0.75f), 0.0f));
-	*/
-
 	stage = new Stage(list,i);
 
 	SDL_LockSurface(window.getSurface());
