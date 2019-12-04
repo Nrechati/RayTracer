@@ -51,7 +51,7 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 				lookat += 0.2f * unit_vector(lookat - lookfrom);
 			return true;
 		}
-		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)) {
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)) {
 			lookfrom[1] += 0.2f;
 			if (lock == false)
 				lookat[1] += 0.2f;
