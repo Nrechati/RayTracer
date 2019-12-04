@@ -205,8 +205,8 @@ void			run_engine(Window &window, Camera &cam) {
 	bool	render_needed = true;
 	while (window.running() == true) {
 		window.show_fps();
-		if (render_needed == true)
-			render(window, cam);
+		//if (render_needed == true)
+		render(window, cam);
 		render_needed = poll_event(window, cam, window.getEvent());
 		SDL_UpdateWindowSurface(window.getWindow());
 	}
@@ -219,7 +219,10 @@ int				main() {
 		Vector lookat(0, 0, -1);
 		float dist_to_focus = (lookfrom - lookat).length();
 		float aperture = 0.0f;
-		Camera *cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, WIDTH/HEIGHT, aperture, dist_to_focus);
+		// High Render
+		// Camera *cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, WIDTH/HEIGHT, aperture, dist_to_focus);
+		// Low Render
+		Camera *cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, 2, aperture, dist_to_focus);
 		run_engine(*window, *cam);
 	}
 	catch (const std::exception& e) {

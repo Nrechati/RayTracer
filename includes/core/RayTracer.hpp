@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/04 09:33:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/04 10:21:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "class/A_Material.hpp"
 
 # define WIDTH 1280.0f
-# define HEIGHT 720.0f
+//# define HEIGHT 720.0f // High Render
+# define HEIGHT 640.0f // Low Render
 
 #endif
