@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 13:07:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/03 12:17:14 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /*
 ** Constructor / Destructor
 */
-Window::Window(void) : width(1280), height(720), name("Unamed") {
+Window::Window(void) : width(WIDTH), height(HEIGHT), name("Unamed") {
 		this->initialize();
 }
 
-Window::Window(std::string name) : width(1280), height(720), name(name) {
+Window::Window(std::string name) : width(WIDTH), height(HEIGHT), name(name) {
         this->initialize();
 }
 
