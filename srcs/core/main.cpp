@@ -32,11 +32,14 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 }
 
 Vector			random_in_unit_sphere() {
-	Vector	p(0,0,0);
-//	do {
-//		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
-//	} while (p.squared_lenght() >= 1.0f);
+	// High render
+	Vector	p;
+	do {
+		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
+	} while (p.squared_lenght() >= 1.0f);
 	return p;
+
+	//return Vector(0,0,0); // Low Render
 }
 
 Vector			reflect(const Vector &v, const Vector &n) {
@@ -75,8 +78,8 @@ class metal : public A_Material {
 			Vector reflected = reflect(unit_vector(r_in.direction()), result.normal);
 			scattered = Ray(result.p, reflected + fuzz*random_in_unit_sphere());
 			attenuation = albedo;
-			return (true); //Low Render
-			//return (dot(scattered.direction(), result.normal) > 0);
+			//return (true); //Low Render
+			return (dot(scattered.direction(), result.normal) > 0);
 		}
 		Vector	albedo;
 		float	fuzz;
@@ -133,7 +136,7 @@ Vector			getColor(const Ray& r, A_Object *stage, int depth) {
 
 void			render(Window &window, Camera &cam) {
 
-	int			ns = 1; //Low Render
+	int			ns = 100; //Low Render = 1
 	Color		color;
 
 	A_Object	*stage;
@@ -177,8 +180,10 @@ void			render(Window &window, Camera &cam) {
 	stage = new Stage(list,i);
 
 	SDL_LockSurface(window.getSurface());
-	for (int j = window.height - 1; j >= 0; j -= 4) {  // Low render
-		for (int i = 0; i < window.width ; i += 4) {   // Low render
+	for (int j = window.height - 1; j >= 0; j --) {  // High render
+	//for (int j = window.height - 1; j >= 0; j -= 4) {  // Low render
+		for (int i = 0; i < window.width ; i ++) {   // High render
+		//for (int i = 0; i < window.width ; i += 4) {   // Low render
 			Vector col_vector(0,0,0);
 			for (int s=0; s < ns; s++) {
 				float u = float(i + drand48()) / float(window.width);
@@ -191,11 +196,14 @@ void			render(Window &window, Camera &cam) {
 			col_vector = col_vector / float(ns);
 			col_vector = Vector(sqrt(col_vector[0]), sqrt(col_vector[1]), sqrt(col_vector[2]));
 			Color	color(col_vector[0], col_vector[1], col_vector[2]);
-			for (int k = 0; k < 4; k++) {				// Low Render
+			// High render
+			window.put_pixel(i, j, color.getCValue());
+			/* Low render
+			for (int k = 0; k < 4; k++) {
 				window.put_pixel(i + k, j + k, color.getCValue());
 				window.put_pixel(i , j + k, color.getCValue());
 				window.put_pixel(i + k, j, color.getCValue());
-			}
+			} */
 		}
 	}
 	SDL_UnlockSurface(window.getSurface());
