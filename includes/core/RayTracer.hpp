@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/04 16:35:02 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/04 19:07:34 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@
 
 # define WIDTH 1280.0f
 # define HEIGHT 720.0f // High Render
-# define NS 100
+# define NS 1
 #endif
