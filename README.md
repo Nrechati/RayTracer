@@ -20,3 +20,5 @@ RayTracer C++ implemention
 - progressbar for render
 
 - Remove Global in main nicely
+
+- Handle Movement, lock and Camera angle with vector
