@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 09:06:51 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/05 11:56:12 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/05 12:20:04 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ ProgressBar::ProgressBar(double iterations) : bar_length(100)
 	this->done_iter = 0;
 	this->tick_rate = 0;
 }
-
 
 ProgressBar::~ProgressBar(void) { ; }
 
