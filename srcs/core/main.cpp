@@ -226,7 +226,8 @@ void			low_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 }
 
 void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
-	for (int j = window.height - 1; j >= 0; j --) {
+	ProgressBar bar(window.height - 1);
+	for (int j = 0; j < window.height; j ++) {
 		for (int i = 0; i < window.width; i++) {
 			Vector col_vector(0, 0, 0);
 			for (int s = 0; s < ns; s++) {
@@ -241,6 +242,7 @@ void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 			Color color(col_vector[0], col_vector[1], col_vector[2]);
 			window.put_pixel(i, j, color.getCValue());
 		}
+		bar.update(j);
 	}
 }
 
