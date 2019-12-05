@@ -12,19 +12,108 @@
 
 #include "core/RayTracer.hpp"
 
+// REMOVE GLOBAL
+uint8_t	render_mode = 0;
+uint8_t	pixel_size = 8;
+Vector	lookfrom(6.5f, 1.8f, 1.0f);
+Vector	lookat(0, 1, -1);
+float	dist_to_focus = (lookfrom - lookat).length();
+float	aperture = 0.0f;
+bool	lock = false;
+
 bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 	while (SDL_PollEvent(event))
 	{
 		if (event->type == SDL_QUIT || (event->type == SDL_KEYDOWN
-					&& event->key.keysym.sym == SDLK_ESCAPE))
-		{
+					&& event->key.keysym.sym == SDLK_ESCAPE)) {
 			window.updateRunning(false);
 			return (false);
 		}
-		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE))
-		{
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_EQUALS)) {
+			if (pixel_size <= 16)
+				pixel_size *= 2;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_MINUS)) {
+			if (pixel_size > 4)
+				pixel_size /= 2;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)) {
+			lookfrom -= 0.2f * unit_vector(lookat - lookfrom);
+			if (lock == false)
+				lookat -= 0.2f * unit_vector(lookat - lookfrom);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_w)) {
+			lookfrom += 0.2f * unit_vector(lookat - lookfrom);
+			if (lock == false)
+				lookat += 0.2f * unit_vector(lookat - lookfrom);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)) {
+			lookfrom[1] += 0.2f;
+			if (lock == false)
+				lookat[1] += 0.2f;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_c)) {
+			lookfrom[1] -= 0.2f;
+			if (lock == false)
+				lookat[1] -= 0.2f;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_d)) {
+			lookfrom += 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			if (lock == false)
+				lookat += 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_a)) {
+			lookfrom -= 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			if (lock == false)
+				lookat -= 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)) {
+			lookat -= 0.3f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RIGHT)) {
+			lookat += 0.3f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)) {
+			lookat += 0.3f * Vector(0,1,0);
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)) {
+			lookat -= 0.3f * Vector(0,1,0);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)) {
+			lookat = Vector(0, 1, -1);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RETURN)) {
+			if (lock == 0) {
+				lock = 1;
+			}
+			else
+				lock = 0;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_END)) {
 			(void)cam;
-			std::cout << "Render" << std::endl;
+			if (render_mode == 0) {
+				render_mode = 1;
+				aperture = 0.05f;
+			}
+			else {
+				render_mode= 0;
+				pixel_size = 8;
+				aperture = 0.0f;
+			}
 			return (true);
 		}
 	}
@@ -32,7 +121,12 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 }
 
 Vector			random_in_unit_sphere() {
+<<<<<<< HEAD
 	// High render
+=======
+	if (render_mode == 0)
+		return Vector(0,0,0);
+>>>>>>> dev
 	Vector	p;
 	do {
 		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
@@ -78,7 +172,12 @@ class metal : public A_Material {
 			Vector reflected = reflect(unit_vector(r_in.direction()), result.normal);
 			scattered = Ray(result.p, reflected + fuzz*random_in_unit_sphere());
 			attenuation = albedo;
+<<<<<<< HEAD
 			//return (true); //Low Render
+=======
+			if (render_mode == 0)
+				return (true); //Low Render
+>>>>>>> dev
 			return (dot(scattered.direction(), result.normal) > 0);
 		}
 		Vector	albedo;
@@ -134,14 +233,60 @@ Vector			getColor(const Ray& r, A_Object *stage, int depth) {
 	}
 }
 
+<<<<<<< HEAD
 void			render(Window &window, Camera &cam) {
 
 	int			ns = 100; //Low Render = 1
 	Color		color;
+=======
+void			low_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
+	for (int j = 0; j < window.height; j += pixel_size) {
+		for (int i = 0; i < window.width; i += pixel_size) {
+			Vector col_vector(0, 0, 0);
+			for (int s = 0; s < ns; s++) {
+				float u = float(i + drand48()) / float(window.width);
+				float v = float(j + drand48()) / float(window.height);
+				Ray r = cam.getRay(u, v);
+				Vector p = r.pt_at_param(2.0f); // REALLY ?
+				col_vector += getColor(r, stage, 0);
+			}
+			col_vector = col_vector / float(ns);
+			col_vector = Vector(sqrt(col_vector[0]), sqrt(col_vector[1]), sqrt(col_vector[2]));
+			Color color(col_vector[0], col_vector[1], col_vector[2]);
+			for (int y = 0; y < pixel_size; y++) {
+				for (int x = 0; x < pixel_size; x++) {
+					window.put_pixel(i + x, j + y, color.getCValue());
+				}
+			}
+		}
+	}
+}
+>>>>>>> dev
 
-	A_Object	*stage;
+void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
+	ProgressBar bar(window.height - 1);
+	for (int j = 0; j < window.height; j ++) {
+		for (int i = 0; i < window.width; i++) {
+			Vector col_vector(0, 0, 0);
+			for (int s = 0; s < ns; s++) {
+				float u = float(i + drand48()) / float(window.width);
+				float v = float(j + drand48()) / float(window.height);
+				Ray r = cam.getRay(u, v);
+				Vector p = r.pt_at_param(2.0f); // REALLY ?
+				col_vector += getColor(r, stage, 0);
+			}
+			col_vector = col_vector / float(ns);
+			col_vector = Vector(sqrt(col_vector[0]), sqrt(col_vector[1]), sqrt(col_vector[2]));
+			Color color(col_vector[0], col_vector[1], col_vector[2]);
+			window.put_pixel(i, j, color.getCValue());
+		}
+		bar.update(j);
+	}
+	std::cout << std::endl;
+}
 
-	int			n = 100;
+A_Object		*init_stage() {
+	int			n = 100; //To fix
 	int			i = 1;
 	A_Object	**list = new A_Object*[n+1];
 
@@ -177,9 +322,12 @@ void			render(Window &window, Camera &cam) {
 	list[i++] = new Sphere(Vector(0,1,-1), 1.0f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.05f));
 	list[i++] = new Sphere(Vector(2,1,-1), 1.0f, new metal(Vector(0.7f, 0.6f, 0.5f), 0.0f));
 
-	stage = new Stage(list,i);
+	return new Stage(list,i);
+}
 
+void			render(Window &window, Camera &cam, A_Object *stage) {
 	SDL_LockSurface(window.getSurface());
+<<<<<<< HEAD
 	for (int j = window.height - 1; j >= 0; j --) {  // High render
 	//for (int j = window.height - 1; j >= 0; j -= 4) {  // Low render
 		for (int i = 0; i < window.width ; i ++) {   // High render
@@ -206,16 +354,27 @@ void			render(Window &window, Camera &cam) {
 			} */
 		}
 	}
+=======
+	if (render_mode == 0)
+		low_render_loop(window, cam, stage, 1);
+	else
+		high_render_loop(window, cam, stage, NS);
+>>>>>>> dev
 	SDL_UnlockSurface(window.getSurface());
 }
 
-void			run_engine(Window &window, Camera &cam) {
-	bool	render_needed = true;
+void			run_engine(Window &window) {
+	bool		render_needed = true;
+	Camera		*cam;
+	A_Object	*stage = init_stage();
 	while (window.running() == true) {
-		window.show_fps();
-		if (render_needed == true)
-			render(window, cam);
-		render_needed = poll_event(window, cam, window.getEvent());
+		//window.show_fps(); //Uncomment to show FPS
+		if (render_needed == true) {
+			cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, WIDTH / HEIGHT, aperture, dist_to_focus);
+			render(window, *cam, stage);
+			delete cam;  // Check this
+		}
+		render_needed = poll_event(window, *cam, window.getEvent());
 		SDL_UpdateWindowSurface(window.getWindow());
 	}
 }
@@ -223,12 +382,7 @@ void			run_engine(Window &window, Camera &cam) {
 int				main() {
 	try {
 		Window *window = new Window("RayTracer", WIDTH, HEIGHT);
-		Vector lookfrom(5, 2, 1);
-		Vector lookat(0, 0, -1);
-		float dist_to_focus = (lookfrom - lookat).length();
-		float aperture = 0.0f;
-		Camera *cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, WIDTH/HEIGHT, aperture, dist_to_focus);
-		run_engine(*window, *cam);
+		run_engine(*window);
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;

@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 16:33:44 by nrechati          #+#    #+#              #
-#    Updated: 2019/12/03 10:23:06 by nrechati         ###   ########.fr        #
+#    Updated: 2019/12/05 11:57:34 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ class_src += Stage.cpp
 class_src += Sphere.cpp
 class_src += Camera.cpp
 class_src += A_Material.cpp
+class_src += ProgressBar.cpp
 
 CORE_DIR = core/
 core_src += main.cpp
