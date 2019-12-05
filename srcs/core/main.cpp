@@ -86,7 +86,6 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 		}
 		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_END)) {
 			(void)cam;
-			std::cout << "Rendering ..." << std::endl;
 			if (render_mode == 0)
 				render_mode = 1;
 			else {
@@ -244,6 +243,7 @@ void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 		}
 		bar.update(j);
 	}
+	std::cout << std::endl;
 }
 
 A_Object		*init_stage() {
@@ -300,7 +300,7 @@ void			run_engine(Window &window) {
 	Camera		*cam;
 	A_Object	*stage = init_stage();
 	while (window.running() == true) {
-		window.show_fps();
+		//window.show_fps(); //Uncomment to show FPS
 		if (render_needed == true) {
 			cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, WIDTH / HEIGHT, aperture, dist_to_focus);
 			render(window, *cam, stage);

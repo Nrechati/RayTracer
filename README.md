@@ -12,6 +12,7 @@ RayTracer C++ implemention
 	- Leak on materials
 	- Leak on Camera
 	- Remove Global in main nicely
+	- Remove C type cast
 
 -	Feature :
 	- Soon :
