@@ -121,12 +121,8 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 }
 
 Vector			random_in_unit_sphere() {
-<<<<<<< HEAD
-	// High render
-=======
 	if (render_mode == 0)
 		return Vector(0,0,0);
->>>>>>> dev
 	Vector	p;
 	do {
 		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
@@ -172,12 +168,8 @@ class metal : public A_Material {
 			Vector reflected = reflect(unit_vector(r_in.direction()), result.normal);
 			scattered = Ray(result.p, reflected + fuzz*random_in_unit_sphere());
 			attenuation = albedo;
-<<<<<<< HEAD
-			//return (true); //Low Render
-=======
 			if (render_mode == 0)
 				return (true); //Low Render
->>>>>>> dev
 			return (dot(scattered.direction(), result.normal) > 0);
 		}
 		Vector	albedo;
@@ -233,12 +225,6 @@ Vector			getColor(const Ray& r, A_Object *stage, int depth) {
 	}
 }
 
-<<<<<<< HEAD
-void			render(Window &window, Camera &cam) {
-
-	int			ns = 100; //Low Render = 1
-	Color		color;
-=======
 void			low_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 	for (int j = 0; j < window.height; j += pixel_size) {
 		for (int i = 0; i < window.width; i += pixel_size) {
@@ -261,7 +247,6 @@ void			low_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 		}
 	}
 }
->>>>>>> dev
 
 void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 	ProgressBar bar(window.height - 1);
@@ -327,39 +312,10 @@ A_Object		*init_stage() {
 
 void			render(Window &window, Camera &cam, A_Object *stage) {
 	SDL_LockSurface(window.getSurface());
-<<<<<<< HEAD
-	for (int j = window.height - 1; j >= 0; j --) {  // High render
-	//for (int j = window.height - 1; j >= 0; j -= 4) {  // Low render
-		for (int i = 0; i < window.width ; i ++) {   // High render
-		//for (int i = 0; i < window.width ; i += 4) {   // Low render
-			Vector col_vector(0,0,0);
-			for (int s=0; s < ns; s++) {
-				float u = float(i + drand48()) / float(window.width);
-				float v = float(j + drand48()) / float(window.height);
-
-				Ray r = cam.getRay(u, v);
-				Vector p = r.pt_at_param(2.0f); // REALLY ?
-				col_vector += getColor(r, stage, 0);
-			}
-			col_vector = col_vector / float(ns);
-			col_vector = Vector(sqrt(col_vector[0]), sqrt(col_vector[1]), sqrt(col_vector[2]));
-			Color	color(col_vector[0], col_vector[1], col_vector[2]);
-			// High render
-			window.put_pixel(i, j, color.getCValue());
-			/* Low render
-			for (int k = 0; k < 4; k++) {
-				window.put_pixel(i + k, j + k, color.getCValue());
-				window.put_pixel(i , j + k, color.getCValue());
-				window.put_pixel(i + k, j, color.getCValue());
-			} */
-		}
-	}
-=======
 	if (render_mode == 0)
 		low_render_loop(window, cam, stage, 1);
 	else
 		high_render_loop(window, cam, stage, NS);
->>>>>>> dev
 	SDL_UnlockSurface(window.getSurface());
 }
 
