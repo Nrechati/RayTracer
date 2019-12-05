@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/04 19:07:34 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/05 11:57:05 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "class/Sphere.hpp"
 # include "class/Camera.hpp"
 # include "class/A_Material.hpp"
+# include "class/ProgressBar.hpp"
 
 # define WIDTH 1280.0f
 # define HEIGHT 720.0f // High Render
