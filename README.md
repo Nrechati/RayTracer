@@ -16,8 +16,6 @@ RayTracer C++ implemention
 
 -	Feature :
 	- Soon :
-		- Add Progressbar for render
-		- Handle canera angle movement (Currently on it)
 		- Target object to move/change it
 		- Dielectrics Materials
 	- Later :
