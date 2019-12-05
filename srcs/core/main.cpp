@@ -14,7 +14,7 @@
 
 // REMOVE GLOBAL
 uint8_t	render_mode = 0;
-uint8_t	pixel_size = 16;
+uint8_t	pixel_size = 8;
 Vector	lookfrom(6.5f, 1.8f, 1.0f);
 Vector	lookat(0, 1, -1);
 float	dist_to_focus = (lookfrom - lookat).length();
@@ -105,11 +105,14 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 		}
 		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_END)) {
 			(void)cam;
-			if (render_mode == 0)
+			if (render_mode == 0) {
 				render_mode = 1;
+				aperture = 0.05f;
+			}
 			else {
 				render_mode= 0;
-				pixel_size = 4;
+				pixel_size = 8;
+				aperture = 0.0f;
 			}
 			return (true);
 		}
