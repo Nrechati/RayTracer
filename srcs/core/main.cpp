@@ -13,13 +13,13 @@
 #include "core/RayTracer.hpp"
 
 // REMOVE GLOBAL
-uint8_t	render_mode = 1;
-uint8_t	pixel_size = 8;
+uint8_t	render_mode = 0;
+uint8_t	pixel_size = 16;
 Vector	lookfrom(6.5f, 1.8f, 1.0f);
 Vector	lookat(0, 1, -1);
 float	dist_to_focus = (lookfrom - lookat).length();
 float	aperture = 0.0f;
-bool	lock = true;
+bool	lock = false;
 
 bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 	while (SDL_PollEvent(event))
@@ -51,13 +51,13 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 				lookat += 0.2f * unit_vector(lookat - lookfrom);
 			return true;
 		}
-		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)) {
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)) {
 			lookfrom[1] += 0.2f;
 			if (lock == false)
 				lookat[1] += 0.2f;
 			return true;
 		}
-		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)) {
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_c)) {
 			lookfrom[1] -= 0.2f;
 			if (lock == false)
 				lookat[1] -= 0.2f;
@@ -75,10 +75,29 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 				lookat -= 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
 			return true;
 		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)) {
+			lookat -= 0.3f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RIGHT)) {
+			lookat += 0.3f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)) {
+			lookat += 0.3f * Vector(0,1,0);
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)) {
+			lookat -= 0.3f * Vector(0,1,0);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)) {
+			lookat = Vector(0, 1, -1);
+			return true;
+		}
 		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RETURN)) {
 			if (lock == 0) {
 				lock = 1;
-				lookat = Vector(0, 1, -1);
 			}
 			else
 				lock = 0;
