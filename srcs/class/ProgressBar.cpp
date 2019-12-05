@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 09:06:51 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/05 13:36:40 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:54:42 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,8 @@ std::ostream		&operator<<(std::ostream &out, ProgressBar const &rhs) {
 	std::string		bar = "";
 	std::string		percent_pad="";
 	std::chrono::duration<double> total_time = rhs.clock - rhs.start;
-	for (int i = 0; i < rhs.percent; i++) {
-		bar += "█";
-	}
-	for (int i = 0; i < 100 - rhs.percent; i++) {
-		bar += " ";
-	}
+	for (int i = 0; i < rhs.percent; i++) { bar += "█";	}
+	for (int i = 0; i < 100 - rhs.percent; i++) {bar += " ";}
 	if (rhs.percent < 10)
 		percent_pad = "  ";
 	else if (rhs.percent == 100)
@@ -85,9 +81,15 @@ std::ostream		&operator<<(std::ostream &out, ProgressBar const &rhs) {
 	out << "\033[1;32m";
 	out << "Rendering ... " << percent_pad << rhs.percent << "% | ";
 	out	<< bar;
-	out	<< " | ETA : "<< std::setprecision(2) << rhs.eta << " s ";
+	if (rhs.eta >= 60)
+		out	<< " | ETA : "<< std::setprecision(2) << rhs.eta / 60 << "min ";
+	else
+		out << " | ETA : " << std::setprecision(2) << rhs.eta << "sec ";
 	out	<< "| Iterations : " << rhs.done_iter + 1 << "/" << rhs.getIterations() + 1;
-	out << " | Elapsed time : " << total_time.count() << "s";
+	if (total_time.count() >= 60)
+		out << " | Elapsed time : " << total_time.count() / 60 << "min";
+	else
+		out << " | Elapsed time : " << total_time.count() << "sec";
 	out << "     \033[1;0m\r";
 	return (out);
 }
