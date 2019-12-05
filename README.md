@@ -6,19 +6,22 @@ RayTracer C++ implemention
 
 #TODO:
 
-- Split files
+-	CodeBase :
+	- Split files
+	- Cleaner calculus for reading
+	- Leak on materials
+	- Leak on Camera
+	- Remove Global in main nicely
 
-- Vector for window boundaries to window class = Camera Class : Done
-- Make it scale to ratio : Done
-
-- Cleaner calculus for reading
-
-- Leak on materials
-- Leak on Camera
-
-- Low Res for mvt switch
-- progressbar for render
-
-- Remove Global in main nicely
-
-- Handle Movement, lock and Camera angle with vector
+-	Feature :
+	- Soon :
+		- Add Progressbar for render
+		- Handle canera angle movement
+		- Target object to move/change it
+		- Dielectrics Materials
+	- Later :
+		- Motion Blur
+		- Volume Hierarchy
+		- Texture & texture Mapping
+		- Perlin Noise texture
+		- Rectangle and Lights
