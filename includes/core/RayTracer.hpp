@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/05 17:13:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2019/12/09 11:52:21 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include "class/A_Material.hpp"
 # include "class/ProgressBar.hpp"
 
-# define WIDTH 1920.0f
-# define HEIGHT 1080.0f
+# define WIDTH 1280.0f
+# define HEIGHT 720.0f
 # define NS 100
 #endif

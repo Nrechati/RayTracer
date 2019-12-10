@@ -13,13 +13,16 @@
 #include "core/RayTracer.hpp"
 
 // REMOVE GLOBAL
-uint8_t	render_mode = 0;
-uint8_t	pixel_size = 8;
-Vector	lookfrom(6.5f, 1.8f, 1.0f);
-Vector	lookat(0, 1, -1);
-float	dist_to_focus = (lookfrom - lookat).length();
-float	aperture = 0.0f;
-bool	lock = false;
+Stage		*stage = nullptr;
+A_Object	*selected = nullptr;
+int			selected_index = 0;
+uint8_t		render_mode = 0;
+uint8_t		pixel_size = 8;
+Vector		lookfrom(6.5f, 1.8f, 1.0f);
+Vector		lookat(0, 1, -1);
+float		dist_to_focus = (lookfrom - lookat).length();
+float		aperture = 0.0f;
+bool		lock = false;
 
 bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 	while (SDL_PollEvent(event))
@@ -92,8 +95,58 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 			return true;
 		}
 		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)) {
+			lookat = static_cast<Sphere*>(selected)->center;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)) {
 			lookat = Vector(0, 1, -1);
 			return true;
+		}
+		if ((selected != nullptr &&  event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_u)) {
+			std::cout << "Ok" << std::endl;
+			Sphere	*tmp = nullptr;
+			if ((tmp = dynamic_cast<Sphere *>(selected)) != nullptr) {
+				tmp->center[1] += 0.1f;
+			}
+			return true;
+		}
+		if ((selected != nullptr &&  event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_j)) {
+			std::cout << "Ok" << std::endl;
+			Sphere	*tmp = nullptr;
+			if ((tmp = dynamic_cast<Sphere *>(selected)) != nullptr) {
+				tmp->center[1] -= 0.1f;
+			}
+			return true;
+		}
+		if ((selected != nullptr &&  event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_h)) {
+			std::cout << "Ok" << std::endl;
+			Sphere	*tmp = nullptr;
+			if ((tmp = dynamic_cast<Sphere *>(selected)) != nullptr) {
+				tmp->center -= 0.1f * cross(unit_vector(lookat - lookfrom), Vector(0, 1, 0));
+			}
+			return true;
+		}
+		if ((selected != nullptr &&  event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_k)) {
+			std::cout << "Ok" << std::endl;
+			Sphere	*tmp = nullptr;
+			if ((tmp = dynamic_cast<Sphere *>(selected)) != nullptr) {
+				tmp->center += 0.1f * cross(unit_vector(lookat - lookfrom), Vector(0, 1, 0));
+			}
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_PAGEUP)) {
+			selected = nullptr;
+			return false;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_HOME)) {
+			int		x;
+			int		y;
+			SDL_GetMouseState(&x, &y);
+			std::cout << "x = " << x << " | y = " << y << std::endl;
+			if (selected_index == stage->size)
+				selected_index = 0;
+			selected = stage->list[selected_index++];
+			return false;
 		}
 		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RETURN)) {
 			if (lock == 0) {
@@ -223,7 +276,7 @@ Vector			getColor(const Ray& r, A_Object *stage, int depth) {
 	}
 }
 
-void			low_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
+void			low_render_loop(Window &window, Camera &cam, int ns) {
 	for (int j = 0; j < window.height; j += pixel_size) {
 		for (int i = 0; i < window.width; i += pixel_size) {
 			Vector col_vector(0, 0, 0);
@@ -246,7 +299,7 @@ void			low_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 	}
 }
 
-void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
+void			high_render_loop(Window &window, Camera &cam, int ns) {
 	ProgressBar bar(window.height - 1);
 	for (int j = 0; j < window.height; j ++) {
 		for (int i = 0; i < window.width; i++) {
@@ -268,7 +321,7 @@ void			high_render_loop(Window &window, Camera &cam, A_Object *stage, int ns) {
 	std::cout << std::endl;
 }
 
-A_Object		*init_stage() {
+Stage			*init_stage() {
 	int			n = 100; //To fix
 	int			i = 1;
 	A_Object	**list = new A_Object*[n+1];
@@ -302,30 +355,29 @@ A_Object		*init_stage() {
 
 	// Center Part
 	list[i++] = new Sphere(Vector(-3,1,-1), 1.0f, new default_mat(Vector(0.1f, 0.2f, 0.5f)));
-	list[i++] = new Sphere(Vector(0,1,-1), 1.0f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.05f));
-	list[i++] = new Sphere(Vector(2,1,-1), 1.0f, new metal(Vector(0.7f, 0.6f, 0.5f), 0.0f));
-
+	list[i++] = new Sphere(Vector(-0.5,1,-1), 1.0f, new metal(Vector(0.8f, 0.6f, 0.2f), 0.05f));
+	list[i++] = new Sphere(Vector(2, 1, -1), 1.0f, new metal(Vector(0.7f, 0.6f, 0.5f), 0.0f));
 	return new Stage(list,i);
 }
 
-void			render(Window &window, Camera &cam, A_Object *stage) {
+void			render(Window &window, Camera &cam) {
 	SDL_LockSurface(window.getSurface());
 	if (render_mode == 0)
-		low_render_loop(window, cam, stage, 1);
+		low_render_loop(window, cam, 1);
 	else
-		high_render_loop(window, cam, stage, NS);
+		high_render_loop(window, cam, NS);
 	SDL_UnlockSurface(window.getSurface());
 }
 
 void			run_engine(Window &window) {
 	bool		render_needed = true;
 	Camera		*cam;
-	A_Object	*stage = init_stage();
+	stage = init_stage();
 	while (window.running() == true) {
 		//window.show_fps(); //Uncomment to show FPS
 		if (render_needed == true) {
 			cam = new Camera(lookfrom, lookat, Vector(0, 1, 0), 50, WIDTH / HEIGHT, aperture, dist_to_focus);
-			render(window, *cam, stage);
+			render(window, *cam);
 			delete cam;  // Check this
 		}
 		render_needed = poll_event(window, *cam, window.getEvent());
@@ -335,6 +387,11 @@ void			run_engine(Window &window) {
 
 int				main() {
 	try {
+		if (render_mode == 1) {
+			std::cout << "\033[1;33m";
+			std::cout << "Launching RayTracer in High Render setup" << std::endl;
+			std::cout << "Setting up environnement ... \033[1;0m" << std::endl;
+		}
 		Window *window = new Window("RayTracer", WIDTH, HEIGHT);
 		run_engine(*window);
 	}
