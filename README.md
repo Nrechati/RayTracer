@@ -27,28 +27,40 @@ To run this program :
 ## Classes
 
 - Window
-	- Constructor
-	- Description
+	- Constructors :
+		- `Window(std::string name)` take `WIDTH` and `HEIGHT` define in `RayTracer.hpp`
+		- `Window(std::string name, size_t width, size_t height)`
+	- Class to handle the render window. Initialize SDL objects and surface. Fill the render surface and implement addtional functions like `show_fps`
 
 - Vector
-	- Constructor
-	- Description
+	- Constructor :
+		- `Vector(float first, float second, float third)`
+	- A math class vector to handle every vector operation and management for calculation. Overload every operator for more convienience in vector usage in the project
+
+- Stage :
+	- Constructor :
+		- `Stage(A_Object **lst, int n)`
+	- Simple class for a **list of *A_Object***. The *hit* method call the *hit* of every *A_Object* in the lst in succession.
 
 - Camera
-	- Constructor
-	- Description
+	- Constructor :
+		- `Camera(Vector lookfrom, Vector lookat, Vector vup, float vfov, float aspect, float aperture, float focus_dist)`
+	- Camera class for the view. Handle position and direction of the camera and getting Ray for render.
 
 - A_Object
-	- Constructor
-	- Description
+	- *Abstract class*, implement a **hit** function that every child must have
+		- `virtual bool hit (const Ray& r, float t_min, float t_max, hit_result& result) const = 0`
+	- Abstract class that every object inherit from *(Sphere for example, is a child of A_Object)*. Also declare the **hit_result** struct to store data from the `hit` function of the object.
 
 - Ray
-	- Constructor
-	- Description
+	- Constructor :
+		- `Ray(const Vector& origin, const Vector& direction)`
+	- Ray class to Ray tracing. Defined by origin, direction, and a float to represent `t` in `A + t*B` segment equation.
 
 - Sphere
-	- Constructor
-	- Description
+	- Constructor :
+		- `Sphere(Vector center, float radius, A_Material *mat_ptr)`
+	- Class for spheres, inherited from *A_object*. Defined by center, radius and material. Implement his own `hit` method regarding 2-Order equation.
 
 - A_Material
 	- Constructor
