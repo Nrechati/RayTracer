@@ -87,33 +87,55 @@ This project uses **SDL2** as a graphic library. I choosed it because I used the
 
 ### The vector class
 
-Obviously, calculation using vector is key for ray-tracing. So a strong vector class to ease those calculations was key. The class overloads `+,-,*,/` and `%` signs both between two vectors and vector/float and/or vector/int. It also overload assignations operators and implement **dot** and **cross** products, **unit_vector** and **lenght** calculation.
+Obviously, calculation using vector is key for ray tracing. So a strong vector class to ease those calculations was key. The class overloads `+,-,*,/` and `%` signs both between two vectors and vector/float and/or vector/int. It also overload assignations operators and implement **dot** and **cross** products, **unit_vector** and **lenght** calculation.
 
 ### Rays and Camera
 
-Rays and Camera are the earth a RayTracer. Camera define the rendering point and direction of view, as well a defining few constant such as **FoV**. Rays describe ligth going from camera to every point in the stage, and reflect/refract upon encountering objects. During computation, rays are viewed as line with the `A + t*B` equation. The program will send a ray from the camera to every pixel in the window *(representing the plane in space define by the camera FoV and the distance to it)*. Then each ray will go through each of the stage's *A_Object* **hit** method to see if it touches something and need reflection/refraction.
+Rays and Camera are the earth a RayTracer. **Camera define the rendering point and direction of view**, as well a defining few constant such as **FoV**. **Rays describe ligth going from camera to every point in the stage**, and reflect/refract upon encountering objects. During computation, rays are viewed as line with the `A + t*B` equation. The program will send a ray from the camera to every pixel in the window *(representing the plane in space define by the camera FoV and the distance to it)*. Then each ray will go through each of the stage's *A_Object* **hit** method to see if it touches something and need reflection/refraction.
 
 ### Spheres
 
-A the moment, sphere is the only object handled by this raytracer. The **hit** method resolve the standard **line - sphere intersection** equation. Meaning if the line cross a point at a distance from the center of the sphere is equal to the sphere's radius, it touches it. Closest hit form camera position is always kept.
+A the moment, **sphere is the only object handled by this raytracer**. The **hit** method resolve the standard **line - sphere intersection** equation. Meaning if the line cross a point at a distance from the center of the sphere is equal to the sphere's radius, it touches it. **Closest hit form camera position is always kept**.
 
 ## Additional Features
 
 ### Antialiasing
 
+**Antialising** main goal is to **blur the edges of objects** by adding some of the **background color**. Precision is also enhanced by **shooting multiple rays for each pixel** and taking a **mean of all color result** for each pixel. This result in a more **smooth visual on colors**.
+
 ### Diffuse Materials
+
+**Default material used is based upon lambertian reflectance**. As lambertian reflectance defines an ideal *matte* surface with diffuse reflectance. It is name after the *Lambert's consine law*. This give a smooth, *matte* look to objects.
 
 ### Metal
 
+The other implemented material is **metal**. This is a higher relfecting material but could be altered to add some fuzziness to it depending on the render wanted. It could be close to a mirror or a very fuzzy relfecting metal.
+
 ### Positionable camera
+
+Handling proper camera position was the first step to handle camera movement. It is done by defining a camera with a *look from* and a *look at* vector for position and direction. From that, by properly handling rays starting point in equations, you can change the position and the direction of the view rendered by the ray tracer.
 
 ### Defocus Blur
 
+Defocus blur aims to add blur on the object the further the object is from the camera focal point. Like in photography. This is handle by defining the camera arperture and focal point. Thus you can increase the effect as needed.
+
 ### Aliasing
+
+Aliasing main goal is the get a really rough render allowing real-time rendering to move camera, direction and object while still having a rough idea of the stage before starting a full render.
 
 ### Camera movement
 
+Aliasing allow the user for a full camera position and direction movement on a 3D space. The camera can move on X/Y/Z axis alongside it's *look at* vector direction. Direction movement also allows to modify the *look at* vector direction around the *look from* position of the camera. You can also **lock** the *look at* point to allow circle movement around a point with a **RPG-like** feeling.
+
+> **Note:** Collision are not a thing in this ray tracer. Thus you can pass through any objects.
+
 ### Object movement
+
+This is still a *Work in progress* feature. I still wanted to implement a mouse pointer selection for object but in the current state you can *blindly* go through each stage object and modify their positions in the space.
+
+## Key mapping
+
+> **Note:** Those key maps are in no way optimize or not subject to change. They were just choose as found natural to me and for a final build, surely needs more tuning and reflections to feel natural.
 
 ## Features to be implemented
 
