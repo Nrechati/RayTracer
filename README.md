@@ -12,7 +12,7 @@ As this project is still a **Work in Progress** the codebase still has debug fun
 
 ## Abstract
 
-
+After spending my first year at 42 learning C and UNIX Systems, I decided to start learning C++. First, because a lot of technologies and applications I'm interested in are using C++ and also because it was still based on concepts I have learned from C. I did really enjoyed learning basics of C++ but wanted to go further by doing a solo project with room for architecture improvement and optimization to improve my knowledge of C++. Ray tracing met those goals and added a nice visual to aim for. This is also a project where I could use my theoretical knowledge of mathematics and learn how maths models can be implemented in code, and how to optimize calculation. As I said, there still plenty of room for new features and optimization. But ray tracing is such a complex and cool technology, I could spend years on it if I listen to everything I want to do. This is a V1.0 with basic features and little optimization but that already checked a lot of the boxes regarding my goals in the first place for this project. Feel free to contact me for anything related to this.
 
 ## How to Run
 
