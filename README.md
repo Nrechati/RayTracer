@@ -63,22 +63,59 @@ To run this program :
 	- Class for spheres, inherited from *A_object*. Defined by center, radius and material. Implement his own `hit` method regarding 2-Order equation.
 
 - A_Material
-	- Constructor
-	- Description
+	- *Abstract class*, implement a **scatter** function that every child must have
+		- `virtual bool scatter(const Ray& r_in, const hit_result& result, Vector& attenuation, Ray& scattered) const = 0`
+	- Abstract call that every material inherit from. It implement the `scatter` function that *describe* how each material reflect and refract light.
 
 - Color
-	- Constructor
-	- Description
+	- Constructor :
+		- `Color(float r, float g, float b)`
+	- Color class to interface color `{r,g,b}` vector to values for **SDL2** surface. The class can set and get value from a vector then pass them to the **SDL2**.
 
 - ProgressBar
-	- Constructor
-	- Description
+	- Constructor :
+		- `ProgressBar(size_t iterations);`
+	- A very simple, not very accurate ProgressBar Class. The goal was to reuse my Python ProgressBar in a C++ environement. Accuracy was not the goal, getting a rough render time on the RayTracer was. This class might be optimized then reused in the future. This progressbar size doesn't scale with the terminal and output is not protected. This is still more of a *debug* feature than a strong, fail-free one.
 
 > **Note :** Naming convention is `A_` prefix is for abstract class and `I_` is for interfaces
 
-## Features
+## Core Features
 
-## Features to ne implemented
+###	Outputing the image
+
+This project uses **SDL2** as a graphic library. I choosed it because I used the SDL2 in other project and was already able to implement what I needed from it, **not for optimization or architecture**. I wanted to focus more on the RayTracer computing that the graphic library. I might change to **OpenGL / OpenCL** in the future, for better performance and/or **GPU-side rendering**.
+
+### The vector class
+
+Obviously, calculation using vector is key for ray-tracing. So a strong vector class to ease those calculations was key. The class overloads `+,-,*,/` and `%` signs both between two vectors and vector/float and/or vector/int. It also overload assignations operators and implement **dot** and **cross** products, **unit_vector** and **lenght** calculation.
+
+### Rays and Camera
+
+Rays and Camera are the earth a RayTracer. Camera define the rendering point and direction of view, as well a defining few constant such as **FoV**. Rays describe ligth going from camera to every point in the stage, and reflect/refract upon encountering objects. During computation, rays are viewed as line with the `A + t*B` equation. The program will send a ray from the camera to every pixel in the window *(representing the plane in space define by the camera FoV and the distance to it)*. Then each ray will go through each of the stage's *A_Object* **hit** method to see if it touches something and need reflection/refraction.
+
+### Spheres
+
+A the moment, sphere is the only object handled by this raytracer. The **hit** method resolve the standard **line - sphere intersection** equation. Meaning if the line cross a point at a distance from the center of the sphere is equal to the sphere's radius, it touches it. Closest hit form camera position is always kept.
+
+## Additional Features
+
+### Antialiasing
+
+### Diffuse Materials
+
+### Metal
+
+### Positionable camera
+
+### Defocus Blur
+
+### Aliasing
+
+### Camera movement
+
+### Object movement
+
+## Features to be implemented
 
 - Soon to be implemented
 	- Targeting Object on mouse pointer to move/change them
@@ -86,7 +123,7 @@ To run this program :
 
 - Later implemented features
 	- Motion Blur
-	- Volume Hierarchy
+	- Bounding Volume Hierarchy
 	- Texture & texture Mapping
 	- Perlin Noise texture
 	- Rectangle and Lights
