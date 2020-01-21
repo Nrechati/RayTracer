@@ -149,8 +149,7 @@ This is still a *Work in progress* feature. I still wanted to implement a mouse 
 - **PageUp :** clear selected object
 - **U H J K :** move selected object
 
-> *Keymaps done on a QWERTY Keyboard*
-> **Note:** Those key maps are in no way optimize or not subject to change. They were just choose as found natural to me and for a final build, surely needs more tuning and reflections to feel natural.
+> **Note:***Keymaps done on a QWERTY Keyboard*. Those key maps are in no way optimize or not subject to change. They were just choose as found natural to me and for a final build, surely needs more tuning and reflections to feel natural.
 
 ## Features to be implemented
 
