@@ -13,18 +13,6 @@
 #include "core/RayTracer.hpp"
 
 // REMOVE GLOBAL
-<<<<<<< HEAD
-Stage		*stage = nullptr;
-A_Object	*selected = nullptr;
-int			selected_index = 0;
-uint8_t		render_mode = 0;
-uint8_t		pixel_size = 8;
-Vector		lookfrom(6.5f, 1.8f, 1.0f);
-Vector		lookat(0, 1, -1);
-float		dist_to_focus = (lookfrom - lookat).length();
-float		aperture = 0.0f;
-bool		lock = false;
-=======
 uint8_t	render_mode = 1;
 uint8_t	pixel_size = 8;
 Vector	lookfrom(6.5f, 1.8f, 1.0f);
@@ -131,7 +119,6 @@ bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
 	}
 	return (false);
 }
->>>>>>> README
 
 Vector			random_in_unit_sphere() {
 	if (render_mode == 0)
