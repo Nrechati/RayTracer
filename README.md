@@ -135,6 +135,21 @@ This is still a *Work in progress* feature. I still wanted to implement a mouse 
 
 ## Key mapping
 
+- **Escape :** Quit all
+- **W A S D :** Move camera origin
+- **Spacebar :** Move up
+- **C :** Move down
+- **Arrows :** Move camera direction
+- **R :** Reset camera
+- **Left Return :** Lock On/Off
+- **End :** Change render mode *High/Low*
+- **= :** Pixel size + *(For aliasing)*
+- **- :** Pixel size - *(For aliasing)*
+- **Home :** select next object in stage
+- **PageUp :** clear selected object
+- **U H J K :** move selected object
+
+> *Keymaps done on a QWERTY Keyboard*
 > **Note:** Those key maps are in no way optimize or not subject to change. They were just choose as found natural to me and for a final build, surely needs more tuning and reflections to feel natural.
 
 ## Features to be implemented
