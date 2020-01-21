@@ -13,6 +13,7 @@
 #include "core/RayTracer.hpp"
 
 // REMOVE GLOBAL
+<<<<<<< HEAD
 Stage		*stage = nullptr;
 A_Object	*selected = nullptr;
 int			selected_index = 0;
@@ -23,6 +24,114 @@ Vector		lookat(0, 1, -1);
 float		dist_to_focus = (lookfrom - lookat).length();
 float		aperture = 0.0f;
 bool		lock = false;
+=======
+uint8_t	render_mode = 1;
+uint8_t	pixel_size = 8;
+Vector	lookfrom(6.5f, 1.8f, 1.0f);
+Vector	lookat(0, 1, -1);
+float	dist_to_focus = (lookfrom - lookat).length();
+float	aperture = 0.0f;
+bool	lock = false;
+
+bool			poll_event(Window &window, Camera &cam, SDL_Event *event) {
+	while (SDL_PollEvent(event))
+	{
+		if (event->type == SDL_QUIT || (event->type == SDL_KEYDOWN
+					&& event->key.keysym.sym == SDLK_ESCAPE)) {
+			window.updateRunning(false);
+			return (false);
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_EQUALS)) {
+			if (pixel_size <= 16)
+				pixel_size *= 2;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_MINUS)) {
+			if (pixel_size > 4)
+				pixel_size /= 2;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_s)) {
+			lookfrom -= 0.2f * unit_vector(lookat - lookfrom);
+			if (lock == false)
+				lookat -= 0.2f * unit_vector(lookat - lookfrom);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_w)) {
+			lookfrom += 0.2f * unit_vector(lookat - lookfrom);
+			if (lock == false)
+				lookat += 0.2f * unit_vector(lookat - lookfrom);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_SPACE)) {
+			lookfrom[1] += 0.2f;
+			if (lock == false)
+				lookat[1] += 0.2f;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_c)) {
+			lookfrom[1] -= 0.2f;
+			if (lock == false)
+				lookat[1] -= 0.2f;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_d)) {
+			lookfrom += 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			if (lock == false)
+				lookat += 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_a)) {
+			lookfrom -= 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			if (lock == false)
+				lookat -= 0.2f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_LEFT)) {
+			lookat -= 0.3f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RIGHT)) {
+			lookat += 0.3f * cross(unit_vector(lookat - lookfrom), Vector(0,1,0));
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_UP)) {
+			lookat += 0.3f * Vector(0,1,0);
+			return true;
+		}
+		if ((lock==false && event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_DOWN)) {
+			lookat -= 0.3f * Vector(0,1,0);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_r)) {
+			lookat = Vector(0, 1, -1);
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_RETURN)) {
+			if (lock == 0) {
+				lock = 1;
+			}
+			else
+				lock = 0;
+			return true;
+		}
+		if ((event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_END)) {
+			(void)cam;
+			if (render_mode == 0) {
+				render_mode = 1;
+				aperture = 0.05f;
+			}
+			else {
+				render_mode= 0;
+				pixel_size = 8;
+				aperture = 0.0f;
+			}
+			return (true);
+		}
+	}
+	return (false);
+}
+>>>>>>> README
 
 Vector			random_in_unit_sphere() {
 	if (render_mode == 0)
@@ -32,6 +141,8 @@ Vector			random_in_unit_sphere() {
 		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1,1,1);
 	} while (p.squared_lenght() >= 1.0f);
 	return p;
+
+	//return Vector(0,0,0); // Low Render
 }
 
 Vector			reflect(const Vector &v, const Vector &n) {
