@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 11:57:19 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/05 13:34:55 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:01:10 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ class ProgressBar {
 		uint8_t			getLength(void) const;
 		void			setIterations(const size_t);
 		size_t			getIterations(void) const;
-
 		void			update(size_t iterator);
 
-		int										percent;
-		size_t									done_iter;
-		double									tick_rate;
-		double									eta;
+		int				percent;
+		size_t			done_iter;
+		double			tick_rate;
+		double			eta;
 		std::chrono::steady_clock::time_point	clock;
 		std::chrono::steady_clock::time_point	start;
 
