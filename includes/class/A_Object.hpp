@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:08 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/09 16:47:41 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:58:49 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ struct hit_result {
 	A_Material	*mat_ptr;
 };
 
-class A_Object
-{
+class A_Object {
 	public:
 		virtual bool hit (const Ray& r, float t_min, float t_max, hit_result& result) const = 0;
 };

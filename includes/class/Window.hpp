@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/28 12:07:16 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:03:02 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,24 @@
 class Window
 {
 	public:
-		/* Construcotr/Destructor */
 		Window(void);
 		Window(std::string name);
 		Window(std::string name, size_t width, size_t height);
 		virtual ~Window(void);
 
-		/* Setters */
 		void			updateRunning(const bool);
-
-		/* Getters */
 		bool			running(void) const;
 		SDL_Window*		getWindow(void) const;
 		SDL_Surface*	getSurface(void) const;
 		SDL_Event*		getEvent(void);
 
-		/* Methods */
 		void show_fps(void);
 		void put_pixel(size_t x, size_t y, uint32_t color);
 
-		/* Public attribute */
 		const int			width;
 		const int			height;
 		const std::string	name;
 
-		/* Exception */
 		class SDL_Init_Exception : public std::exception {
 			public:
 				virtual const char* what() const throw() {

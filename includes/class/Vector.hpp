@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:02 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 09:55:04 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:02:41 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 # define VECTOR_H
 # include "core/RayTracer.hpp"
 
-class Vector
-{
+class Vector {
 	public:
-		/* Construcotr/Destructor */
 		Vector(void);
 		Vector(float first, float second, float third);
 		virtual ~Vector(void);
 
-		/* Methods */
-		float x(void) const;
-		float y(void) const;
-		float z(void) const;
+		float	x(void) const;
+		float	y(void) const;
+		float	z(void) const;
 
 		float	length() const;
 		float	squared_lenght() const;
 		void 	make_unit_vector();
-		void			setValues(float x, float y, float z);
+		void	setValues(float x, float y, float z);
 
-		/* Operator Overloads */
 		Vector			operator-() const;
 		const Vector&	operator+() const { return *this; }
 		float			operator[](int i) const { return values[i]; }
@@ -45,9 +41,7 @@ class Vector
 		Vector&			operator*=(float t);
 		Vector&			operator/=(float t);
 
-		/* Public Attribute */
 		float	values[3];
-
 };
 
 std::istream&	operator>>(std::istream &is, Vector &rhs);

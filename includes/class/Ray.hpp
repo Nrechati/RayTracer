@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:13:58 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 09:55:29 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:01:25 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define RAY_H
 # include "core/RayTracer.hpp"
 
-class Ray
-{
+class Ray {
 	public:
 		Ray(void);
 		Ray(const Vector& origin, const Vector& direction);

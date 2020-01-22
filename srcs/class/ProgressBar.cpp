@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 09:06:51 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/05 13:54:42 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:15:22 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ ProgressBar::~ProgressBar(void) { system("tput cnorm"); }
 ** Set/Getters
 */
 uint8_t				ProgressBar::getLength(void) const { return this->bar_length; }
-
 size_t				ProgressBar::getIterations(void) const { return this->iterations; }
 void				ProgressBar::setIterations(size_t iterations) {
 	this->iterations = iterations;
 }
-
 
 /*
 ** Method and Member fucntion

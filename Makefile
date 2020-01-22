@@ -6,7 +6,7 @@
 #    By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 16:33:44 by nrechati          #+#    #+#              #
-#    Updated: 2019/12/05 11:57:34 by nrechati         ###   ########.fr        #
+#    Updated: 2020/01/22 14:49:44 by nrechati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,10 @@ class_src += A_Material.cpp
 class_src += ProgressBar.cpp
 
 CORE_DIR = core/
+core_src += material_functions.cpp
+core_src += events.cpp
+core_src += init_stage.cpp
+core_src += render.cpp
 core_src += main.cpp
 
 #Reference sources
