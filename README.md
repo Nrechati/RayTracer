@@ -2,7 +2,7 @@
 
 This project is my attempt to implement a **RayTracer in C++**. The main goal here was to use my C++ knowledge on a medium scale project with a lot of room for **optimization architecture improvement and features ideas**. The only external lib used is **SDL2** which is required to run the project. As of January 2020 I **paused this project** to clean the Codebase in this *"V1.0"* state and focus on other things after 3 weeks on it. There is a lot of other features in the future. Those will be listed at the bottom of this documentation.
 
-![V1.0](./v1_0.png)
+![V1.0](./screenshots/Cover_v1.0.png)
 
 ## Disclaimer
 
@@ -101,13 +101,19 @@ A the moment, **sphere is the only object handled by this raytracer**. The **hit
 
 ### Antialiasing
 
+![Antialiasing](./screenshots/antialiasing.png)
+
 **Antialising** main goal is to **blur the edges of objects** by adding some of the **background color**. Precision is also enhanced by **shooting multiple rays for each pixel** and taking a **mean of all color result** for each pixel. This results in a more **smooth visual on colors**.
 
 ### Diffuse Materials
 
+![Lambertian](./screenshots/lambertian.png)
+
 **Default material used is based upon Lambertian reflectance**. Lambertian reflectance defines an ideal *matte* surface with diffuse reflectance. It is named after the *Lambert's cosine law*. This gives a smooth, *matte* look to objects.
 
 ### Metal
+
+![Metal](./screenshots/metal.png)
 
 The other implemented material is **metal**. This is a higher reflecting material but could be altered to add some fuzziness to it depending on the render wanted. It could be close to a mirror or a very fuzzy reflecting metal.
 
@@ -117,9 +123,13 @@ Handling a proper camera position was the first step to handle camera movement. 
 
 ### Defocus Blur
 
+![defocus_blur](./screenshots/defocus_blur.png)
+
 Defocus blur aims to add blur on the object the further the object is from the camera focal point. Like in photography. This is handled by defining the camera aperture and focal point. Thus you can increase the effect as needed.
 
 ### Aliasing
+
+![aliasing](./screenshots/aliasing.png)
 
 Aliasing main goal is to get a rough render allowing real-time rendering to move camera, direction, and object while still having a rough idea of the stage before starting a full render.
 
