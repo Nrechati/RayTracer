@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2020/01/22 12:10:13 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:52:54 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,17 @@
 # include "class/Sphere.hpp"
 # include "class/Camera.hpp"
 # include "class/A_Material.hpp"
+# include "class/Materials.hpp"
 # include "class/ProgressBar.hpp"
 
-Vector random_in_unit_sphere();
-Vector reflect(const Vector &v, const Vector &n);
+/* Classes */
+class Camera;
+class Stage;
+
+/* General functions */
+void	render(Window &window, Camera &cam);
+bool	poll_event(Window &window, Camera &cam, SDL_Event *event);
+Stage	*init_stage();
 
 # define WIDTH 1280.0f
 # define HEIGHT 720.0f
