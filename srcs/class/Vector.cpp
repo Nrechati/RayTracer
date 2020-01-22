@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:00:26 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 13:51:19 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:16:44 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** Constructor / Destructor
 */
-
 Vector::Vector(void) {
 	values[0] = 0;
 	values[1] = 0;
@@ -117,7 +116,6 @@ void		Vector::make_unit_vector() {
 	values[2] *= k;
 }
 
-
 void			Vector::setValues(float x, float y, float z) {
 	values[0] = x;
 	values[1] = y;
@@ -127,7 +125,6 @@ void			Vector::setValues(float x, float y, float z) {
 /*
 ** Static Vector functions
 */
-
 std::istream &operator>>(std::istream &is, Vector &rhs) {
 	is >> rhs.values[0] >> rhs.values[1] >> rhs.values[2];
 	return is;
@@ -137,7 +134,6 @@ std::ostream &operator<<(std::ostream &os, Vector &rhs) {
 	os << rhs.values[0] << rhs.values[1] << rhs.values[2];
 	return os;
 }
-
 
 Vector		operator+(const Vector &lhs, const Vector &rhs) {
 	Vector result(lhs.values[0] + rhs.values[0],

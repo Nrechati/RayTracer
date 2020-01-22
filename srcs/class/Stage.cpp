@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:14:17 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/09 14:59:53 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:15:58 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ Stage::~Stage(void) {
 /*
 ** Methods
 */
-
 bool	Stage::hit(const Ray &r, float t_min, float t_max, hit_result &result) const {
 	hit_result	tmp_res;
 	bool		hitted_smth = false;
@@ -52,7 +51,6 @@ bool	Stage::hit(const Ray &r, float t_min, float t_max, hit_result &result) cons
 /*
 ** Static Function
 */
-
 std::ostream		&operator<<(std::ostream &out, Stage const &rhs)
 {
 	out << " Stage has " << rhs.size << " Objects in it" << std::endl;

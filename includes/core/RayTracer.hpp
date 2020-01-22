@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:51:48 by nrechati          #+#    #+#             */
-/*   Updated: 2020/01/22 11:01:58 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:10:13 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # include "class/Camera.hpp"
 # include "class/A_Material.hpp"
 # include "class/ProgressBar.hpp"
+
+Vector random_in_unit_sphere();
+Vector reflect(const Vector &v, const Vector &n);
 
 # define WIDTH 1280.0f
 # define HEIGHT 720.0f

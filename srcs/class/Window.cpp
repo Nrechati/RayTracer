@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:17:01 by nrechati          #+#    #+#             */
-/*   Updated: 2019/12/05 12:20:07 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:16:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ bool			Window::running(void) const { return this->status; }
 SDL_Window*		Window::getWindow(void) const { return this->window; }
 SDL_Surface*	Window::getSurface(void) const { return this->surface; }
 SDL_Event*		Window::getEvent(void) { return &this->event; }
-
 
 /*
 ** Method and Member fucntion

@@ -6,7 +6,7 @@
 /*   By: nrechati <nrechati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:03:35 by nrechati          #+#    #+#             */
-/*   Updated: 2019/11/27 14:14:31 by nrechati         ###   ########.fr       */
+/*   Updated: 2020/01/22 12:14:59 by nrechati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ Color::Color(float r, float g, float b) : Vector(r,g,b){
 	this->setCValue();
 }
 
-Color::~Color(void) {}
+Color::~Color(void) {;}
 
 /*
 ** Getters / Setters
 */
+
 void	Color::setCValue(void) {
 	color_value = ((uint8_t)(values[0]*255)) << 16 | ((uint8_t)(values[1]*255)) << 8 | ((uint8_t)(values[2]*255));
 }

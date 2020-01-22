@@ -29,8 +29,7 @@ Vector random_in_unit_sphere()
 	if (render_mode == 0)
 		return Vector(0, 0, 0);
 	Vector p;
-	do
-	{
+	do {
 		p = 2.0f * Vector(drand48(), drand48(), drand48()) - Vector(1, 1, 1);
 	} while (p.squared_lenght() >= 1.0f);
 	return p;
@@ -93,6 +92,7 @@ public:
 	float fuzz;
 };
 
+/* Broken */
 class dielectric : public A_Material
 {
 public:
