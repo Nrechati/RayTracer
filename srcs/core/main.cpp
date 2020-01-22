@@ -14,7 +14,7 @@
 
 /* Environment */
 Stage *stage = nullptr;
-uint8_t render_mode = 0;
+uint8_t render_mode = 1;
 uint8_t pixel_size = 8;
 Vector lookfrom(6.5f, 1.8f, 1.0f);
 Vector lookat(0, 1, -1);
